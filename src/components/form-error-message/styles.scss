@@ -1,0 +1,17 @@
+@use 'globals' as *;
+
+.errorMessage {
+  font-size: .65em;
+  display: flex;
+  align-items: center;
+  height: 1.5em;
+  margin-bottom: 1em;
+  opacity: 0;
+  color: $error-color;
+  transition-property: opacity;
+  transition-duration: $transition-duration;
+
+  &.visible {
+    opacity: 1;
+  }
+}

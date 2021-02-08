@@ -1,0 +1,25 @@
+@use 'globals' as *;
+
+body {
+  font-size: 20px;
+  height: 100vh;
+  font-family: sans-serif;
+  font-weight: lighter;
+  user-select: none;
+}
+
+input {
+  color: inherit;
+
+  &:focus {
+    outline: none;
+  }
+
+  &::placeholder {
+    color: $unfocused-color;
+  }
+}
+
+button:disabled {
+  cursor: not-allowed;
+}

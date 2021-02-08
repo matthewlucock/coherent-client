@@ -1,0 +1,7 @@
+@use 'globals' as *;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 100% - $chat-list-width;
+}

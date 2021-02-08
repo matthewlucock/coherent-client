@@ -1,0 +1,12 @@
+{
+  "extends": ["standard-with-typescript", "standard-react"],
+  "parserOptions": { "project": "./tsconfig.json" },
+  "ignorePatterns": ["dist"],
+
+  "rules": {
+    "max-len": ["error", { "code": 100, "ignoreStrings": true }],
+    "@typescript-eslint/consistent-type-definitions": ["error", "type"],
+    "@typescript-eslint/no-non-null-assertion": "off",
+    "react/prop-types": "off"
+  }
+}

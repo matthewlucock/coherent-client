@@ -1,0 +1,14 @@
+@use 'globals' as *;
+
+.container {
+  @extend %app-bar-item-container;
+}
+
+.icon-container {
+  @extend %app-bar-icon-container;
+  color: red;
+}
+
+.modal {
+  height: 60%;
+}

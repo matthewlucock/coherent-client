@@ -1,0 +1,11 @@
+@use 'globals' as *;
+
+.container {
+  @extend %app-bar-item-container;
+  position: relative;
+}
+
+.icon-container {
+  @extend %app-bar-icon-container;
+  color: red;
+}

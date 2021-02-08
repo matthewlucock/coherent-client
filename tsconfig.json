@@ -1,0 +1,24 @@
+{
+  "include": ["**/*", "src/.d.ts"],
+
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "jsx": "react",
+    "moduleResolution": "node",
+    "paths": { "coherent/*": ["src/*"] },
+    "plugins": [
+      {
+        "name": "typescript-plugin-css-modules",
+        "options": {
+          "customMatcher": "\\.scss$",
+          "classnameTransform": "camelCaseOnly",
+          "rendererOptions": { "sass": { "includePaths": ["src"] } }
+        }
+      }
+    ],
+    "strict": true,
+    "target": "es2019",
+  }
+}

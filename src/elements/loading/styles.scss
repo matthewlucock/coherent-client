@@ -1,0 +1,10 @@
+@use 'globals' as *;
+
+.container {
+  @extend %pane;
+}
+
+.loadingIndicator {
+  @extend %loading-indicator;
+  margin-top: 1em;
+}

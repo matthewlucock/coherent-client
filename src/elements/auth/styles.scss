@@ -1,0 +1,36 @@
+@use 'globals' as *;
+
+$form-width: 13em;
+
+.container {
+  @extend %pane;
+}
+
+.heading {
+  margin-bottom: .25em;
+}
+
+.form {
+  @extend %column;
+  width: $form-width;
+  margin-bottom: .5em;
+}
+
+.inputsContainer {
+  margin-bottom: 1.25em;
+}
+
+.submitButton {
+  @extend %button;
+  width: $form-width / 2;
+}
+
+.loadingIndicator {
+  @extend %loading-indicator;
+}
+
+.toggleLink {
+  @extend %link;
+  font-size: .75em;
+  width: max-content;
+}

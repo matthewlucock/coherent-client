@@ -1,0 +1,30 @@
+@use 'globals' as *;
+
+$container-padding: 1em;
+$box-border-color: hsl(0, 0%, 70%);
+
+.container {
+  display: flex;
+  padding: $container-padding $container-padding $container-padding 0;
+}
+
+.form {
+  flex-grow: 1;
+  display: flex;
+}
+
+.messageBox {
+  flex-grow: 1;
+  padding: .5em;
+  margin-right: 1em;
+  border: .1em solid $box-border-color;
+  border-radius: .5em;
+}
+
+.messageInput {
+  width: 100%;
+}
+
+.submit {
+  font-size: 2em;
+}

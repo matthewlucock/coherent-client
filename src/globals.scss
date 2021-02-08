@@ -1,0 +1,127 @@
+$transition-duration: .25s;
+
+$unfocused-color: hsl(0, 0%, 60%);
+$error-color: hsl(0, 100%, 40%);
+$chat-list-width: 25%;
+
+%column {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+%pane {
+  @extend %column;
+  font-size: 1.25em;
+  justify-content: center;
+  height: 100%;
+}
+
+%link {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  color: inherit;
+  text-decoration: none;
+
+  &::after {
+    content: '';
+    width: 0;
+    height: .15em;
+    margin-top: .2em;
+    border-radius: 1em;
+    background-color: currentColor;
+    transition-property: width;
+    transition-duration: $transition-duration * 2;
+  }
+
+  &:hover::after {
+    width: 100%;
+  }
+}
+
+%button {
+  position: relative;
+  height: 2.2em;
+  padding: 0 .5em;
+  border-radius: 2em;
+  overflow: hidden;
+  background-color: rgba(black, .2);
+  text-align: center;
+  color: white;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition-property: background-color, opacity;
+  transition-duration: .15s;
+
+  &:disabled {
+    background-color: rgba(white, .5);
+  }
+
+  &:not(:disabled):hover {
+    background-color: transparent;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-image: linear-gradient(90deg, hsl(200, 100%, 60%), hsl(270, 100%, 60%));
+    z-index: -1;
+  }
+}
+
+%loading-indicator {
+  $dot-size: 1em;
+  $dot-margin: .25em;
+  $width: 3 * $dot-size + 2 * $dot-margin;
+
+  display: flex;
+  width: $width;
+  margin: 0 auto;
+
+  &::before {
+    @keyframes loading {
+      0% {
+        left: 0;
+      }
+
+      100% {
+        left: $width - $dot-size;
+      }
+    }
+
+    content: '';
+    position: relative;
+    width: $dot-size;
+    height: $dot-size;
+    border-radius: 100%;
+    background: currentColor;
+    animation-name: loading;
+    animation-timing-function: steps(3, jump-none);
+    animation-iteration-count: infinite;
+    animation-duration: 1.5s;
+  }
+}
+
+$app-bar-padding: .25em;
+
+%app-bar-item-container {
+  height: 100%;
+}
+
+%app-bar-item {
+  display: flex;
+  align-items: center;
+  height: 100%;
+  padding: $app-bar-padding 0;
+}
+
+%app-bar-icon-container {
+  @extend %app-bar-item;
+  padding: $app-bar-padding;
+  cursor: pointer;
+}

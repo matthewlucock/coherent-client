@@ -1,0 +1,69 @@
+@use 'globals' as *;
+
+$focused-color: hsl(0, 0%, 20%);
+$complete-color: hsl(100, 100%, 30%);
+
+.container {
+  margin-bottom: .5em;
+}
+
+.label {
+  font-size: .7em;
+  padding-left: .1em;
+  opacity: 0;
+  cursor: default;
+  transition-property: opacity;
+  transition-duration: $transition-duration;
+
+  // Separate color and opacity into different levels
+
+  &.nonEmpty, .complete &, .error & {
+    opacity: 1;
+  }
+
+  &.complete {
+    color: $complete-color;
+  }
+
+  &.error {
+    color: $error-color;
+  }
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  padding: .25em 0;
+  border-bottom: .075em solid $unfocused-color;
+  cursor: text;
+  transition-property: border-color;
+  transition-duration: $transition-duration;
+
+  .focused & {
+    border-color: $focused-color;
+  }
+}
+
+.baseInput {
+  width: 100%;
+}
+
+.icon {
+  width: 1em !important;
+  margin-right: .5em;
+  color: $unfocused-color;
+  transition-property: color;
+  transition-duration: $transition-duration;
+
+  .focused &, .complete &, .error & {
+    color: $focused-color;
+  }
+
+  .complete & {
+    color: $complete-color;
+  }
+
+  .error & {
+    color: $error-color;
+  }
+}

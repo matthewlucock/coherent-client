@@ -1,0 +1,33 @@
+@use 'globals' as *;
+
+.container {
+  padding: .5em;
+  cursor: pointer;
+
+  &.selected {
+    cursor: default;
+  }
+}
+
+.card {
+  display: flex;
+  padding: .25em;
+
+  .selected & {
+    background: hsl(0, 0%, 90%);
+  }
+}
+
+.userImage {
+  font-size: 2em;
+  margin-right: .5em;
+}
+
+.username {
+  opacity: 1;
+}
+
+.message {
+  font-size: .75em;
+  opacity: .5;
+}
