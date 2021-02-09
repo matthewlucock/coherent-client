@@ -1,10 +1,10 @@
 import * as React from 'react'
 
+import styles from './styles.scss'
+
 import { UserMenu } from 'coherent/elements/user-menu'
 import { Friends } from 'coherent/elements/friends'
 import { Logo } from 'coherent/components/logo'
-
-import styles from './styles.scss'
 
 export const AppBar: React.FC = () => (
   <div className={styles.container}>

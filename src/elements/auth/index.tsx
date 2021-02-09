@@ -1,13 +1,13 @@
 import * as React from 'react'
 import { Switch, Route } from 'react-router-dom'
 
+import styles from './styles.scss'
+
 import { LOGIN_ROUTE, SIGNUP_ROUTE } from 'coherent/routes'
 
 import { Login } from './login'
 import { Signup } from './signup'
 import { Logo } from 'coherent/components/logo'
-
-import styles from './styles.scss'
 
 export const Auth: React.FC = () => (
   <div className={styles.container}>

@@ -1,9 +1,9 @@
 import * as React from 'react'
 import clsx from 'clsx'
 
-import { LoadingIndicator } from 'coherent/components/loading-indicator'
-
 import styles from './styles.scss'
+
+import { LoadingIndicator } from 'coherent/components/loading-indicator'
 
 type Props = Readonly<{
   className?: string
