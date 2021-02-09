@@ -33,7 +33,8 @@ class Socket {
     const message: SocketMessage = JSON.parse(rawMessage)
 
     if (message.type === 'message') {
-      store.dispatch(chatsActions.saveMessage(message.data))
+      const { chatId, ...rest } = message.data
+      store.dispatch(chatsActions.saveMessage({ chatId, message: rest }))
     }
   }
 

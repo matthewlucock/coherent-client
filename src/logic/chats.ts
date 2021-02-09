@@ -6,7 +6,6 @@ type QueueMessageArgs = Readonly<{
   chatId: string
   content: string
 }>
-
 export const queueMessage = ({ chatId, content }: QueueMessageArgs): void => {
   const chat = store.getState().chats.chats[chatId]
 
@@ -28,7 +27,7 @@ export const sendMessages = async (chatId: string): Promise<void> => {
 
   message.timeSent = queuedMessage.time
   store.dispatch(chatsActions.sendSucceeded(chatId))
-  store.dispatch(chatsActions.saveMessage(message))
+  store.dispatch(chatsActions.saveMessage({ chatId, message }))
 
   if (store.getState().chats.chats[chatId].queue.length > 0) {
     sendMessages(chatId).catch(console.error)

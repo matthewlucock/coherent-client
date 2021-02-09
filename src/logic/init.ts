@@ -28,7 +28,10 @@ export const mainInit = async (): Promise<void> => {
     const { chats, messages, users } = await apiRequest('init')
 
     for (const chat of chats) store.dispatch(chatsActions.saveChat(chat))
-    for (const message of messages) store.dispatch(chatsActions.saveMessage(message))
+    for (const message of messages) {
+      const { chatId, ...rest } = message
+      store.dispatch(chatsActions.saveMessage({ chatId, message: rest }))
+    }
     for (const user of users) store.dispatch(usersActions.saveUser(user))
   } catch (error) {
     store.dispatch(apiActions.mainInitFailed())

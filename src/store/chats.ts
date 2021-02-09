@@ -14,7 +14,6 @@ export type OfficialMessage = BaseMessage & Readonly<{
 export const isMessageOfficial = (message: BaseMessage): message is OfficialMessage => (
   (message as OfficialMessage).userId !== undefined
 )
-type OfficialMessageFromServer = OfficialMessage & Readonly<{ chatId: string }>
 
 type ChatData = Readonly<{
   participantIds: string[]
@@ -31,7 +30,6 @@ type State = Readonly<{
   chats: { [id: string]: Chat }
   selected: string | null
 }>
-
 const initialState: State = {
   chats: {},
   selected: null
@@ -40,6 +38,10 @@ const initialState: State = {
 type QueueMessagePayload = Readonly<{
   chatId: string
   content: string
+}>
+type SaveMessagePayload = Readonly<{
+  chatId: string
+  message: OfficialMessage
 }>
 
 const slice = createSlice({
@@ -85,8 +87,8 @@ const slice = createSlice({
       chat.sending = false
     },
 
-    saveMessage: (state, { payload }: PayloadAction<OfficialMessageFromServer>) => {
-      const { chatId, ...message } = payload
+    saveMessage: (state, { payload }: PayloadAction<SaveMessagePayload>) => {
+      const { chatId, message } = payload
       const messageList = state.chats[chatId].messages
 
       for (const [index, givenMessage] of messageList.entries()) {
