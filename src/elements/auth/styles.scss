@@ -25,10 +25,6 @@ $form-width: 13em;
   width: $form-width / 2;
 }
 
-.loadingIndicator {
-  @extend %loading-indicator;
-}
-
 .toggleLink {
   @extend %link;
   font-size: .75em;

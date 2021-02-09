@@ -1,5 +1,6 @@
 import * as React from 'react'
 
+import { LoadingIndicator } from 'coherent/components/loading-indicator'
 import { Logo } from 'coherent/components/logo'
 
 import styles from './styles.scss'
@@ -7,6 +8,6 @@ import styles from './styles.scss'
 export const Loading: React.FC = () => (
   <div className={styles.container}>
     <Logo />
-    <div className={styles.loadingIndicator} />
+    <LoadingIndicator className={styles.loadingIndicator} />
   </div>
 )

@@ -74,39 +74,6 @@ $chat-list-width: 25%;
   }
 }
 
-%loading-indicator {
-  $dot-size: 1em;
-  $dot-margin: .25em;
-  $width: 3 * $dot-size + 2 * $dot-margin;
-
-  display: flex;
-  width: $width;
-  margin: 0 auto;
-
-  &::before {
-    @keyframes loading {
-      0% {
-        left: 0;
-      }
-
-      100% {
-        left: $width - $dot-size;
-      }
-    }
-
-    content: '';
-    position: relative;
-    width: $dot-size;
-    height: $dot-size;
-    border-radius: 100%;
-    background: currentColor;
-    animation-name: loading;
-    animation-timing-function: steps(3, jump-none);
-    animation-iteration-count: infinite;
-    animation-duration: 1.5s;
-  }
-}
-
 $app-bar-padding: .25em;
 
 %app-bar-item-container {

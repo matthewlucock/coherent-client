@@ -1,6 +1,8 @@
 import * as React from 'react'
 import clsx from 'clsx'
 
+import { LoadingIndicator } from 'coherent/components/loading-indicator'
+
 import styles from './styles.scss'
 
 type Props = Readonly<{
@@ -15,6 +17,6 @@ export const FormSubmitButton: React.FC<Props> = props => (
     className={clsx(styles.submitButton, props.className)}
     disabled={props.disabled || props.pending}
   >
-    {props.pending ? <div className={styles.loadingIndicator} /> : props.children}
+    {props.pending ? <LoadingIndicator className={styles.loadingIndicator} /> : props.children}
   </button>
 )

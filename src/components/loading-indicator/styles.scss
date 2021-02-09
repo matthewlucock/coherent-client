@@ -1,0 +1,18 @@
+@use 'globals' as *;
+
+@keyframes spin {
+  from { transform: rotate(0) }
+  to { transform: rotate(1turn) }
+}
+
+.loadingIndicator {
+  width: 1em;
+  height: 1em;
+  border: .125em solid;
+  border-left-color: transparent;
+  border-radius: 100%;
+  animation-name: spin;
+  animation-duration: 1s;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
