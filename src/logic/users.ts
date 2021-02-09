@@ -1,6 +1,6 @@
-import { apiRequest } from '.'
 import { store } from 'coherent/store'
 import { usersActions } from 'coherent/store/users'
+import { apiRequest } from 'coherent/api'
 
 // todo: not fetch already being fetched
 export const fetchUser = async (userId: string): Promise<void> => {

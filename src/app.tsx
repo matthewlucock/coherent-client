@@ -4,7 +4,7 @@ import { Switch, useHistory } from 'react-router'
 import { useSelector } from './store'
 import { getInitPending } from './store/api'
 import { getAuthenticated } from './store/self'
-import { baseInit, mainInit } from './api/init'
+import { baseInit, mainInit } from './logic/init'
 import {
   AuthenticatedRoute,
   UnauthenticatedRoute,

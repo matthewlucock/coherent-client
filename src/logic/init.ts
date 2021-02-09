@@ -1,10 +1,10 @@
-import { apiRequest } from '.'
-import { socket } from './socket'
-import { fetchSelf } from './self'
 import { store } from 'coherent/store'
 import { apiActions } from 'coherent/store/api'
 import { usersActions } from 'coherent/store/users'
 import { chatsActions } from 'coherent/store/chats'
+import { apiRequest } from 'coherent/api'
+import { socket } from 'coherent/api/socket'
+import { fetchSelf } from './self'
 
 export const baseInit = async (): Promise<void> => {
   store.dispatch(apiActions.baseInitPending())

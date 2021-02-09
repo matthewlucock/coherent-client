@@ -6,7 +6,7 @@ import type { IconProp } from '@fortawesome/fontawesome-svg-core'
 import styles from './styles.scss'
 
 import type { InputState } from 'coherent/globals'
-import type { InputValidator } from 'coherent/api/input-validation'
+import type { InputValidator } from 'coherent/logic/input-validation'
 
 type Props = Readonly<{
   type?: string

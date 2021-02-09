@@ -6,8 +6,8 @@ import styles from './styles.scss'
 
 import type { InputState } from 'coherent/globals'
 import { useSelector } from 'coherent/store'
-import { login } from 'coherent/api/auth'
-import { usernameInputValidator } from 'coherent/api/input-validation'
+import { login } from 'coherent/logic/auth'
+import { usernameInputValidator } from 'coherent/logic/input-validation'
 import { SIGNUP_ROUTE } from 'coherent/routes'
 
 import { FormInput } from 'coherent/components/form-input'

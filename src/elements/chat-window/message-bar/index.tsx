@@ -4,7 +4,7 @@ import { faArrowCircleUp as fasArrowCircleUp } from '@fortawesome/free-solid-svg
 
 import styles from './styles.scss'
 
-import { queueMessage } from 'coherent/api/chats'
+import { queueMessage } from 'coherent/logic/chats'
 
 type Props = Readonly<{
   chatId: string

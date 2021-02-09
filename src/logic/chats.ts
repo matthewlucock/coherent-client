@@ -1,6 +1,6 @@
-import { apiRequest } from '.'
 import { store } from 'coherent/store'
 import { chatsActions } from 'coherent/store/chats'
+import { apiRequest } from 'coherent/api'
 
 type QueueMessageArgs = Readonly<{
   chatId: string
