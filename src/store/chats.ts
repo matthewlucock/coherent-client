@@ -35,13 +35,26 @@ const initialState: State = {
   selected: null
 }
 
+type SaveMessageOptions = Readonly<{
+  chatId: string
+  message: OfficialMessage
+}>
+const saveMessage = (state: State, { chatId, message }: SaveMessageOptions): void => {
+  const messageList = state.chats[chatId].messages
+
+  for (const [index, givenMessage] of messageList.entries()) {
+    if (message.time > givenMessage.time) {
+      messageList.splice(index, 0, message)
+      return
+    }
+  }
+
+  messageList.push(message)
+}
+
 type QueueMessagePayload = Readonly<{
   chatId: string
   content: string
-}>
-type SaveMessagePayload = Readonly<{
-  chatId: string
-  message: OfficialMessage
 }>
 
 const slice = createSlice({
@@ -81,24 +94,18 @@ const slice = createSlice({
       chat.sending = true
     },
 
-    sendSucceeded: (state, { payload: chatId }: PayloadAction<string>) => {
+    sendSucceeded: (state, { payload }: PayloadAction<SaveMessageOptions>) => {
+      const { chatId, message } = payload
+
       const chat = state.chats[chatId]
       chat.queue.pop()
       chat.sending = false
+
+      saveMessage(state, { chatId, message })
     },
 
-    saveMessage: (state, { payload }: PayloadAction<SaveMessagePayload>) => {
-      const { chatId, message } = payload
-      const messageList = state.chats[chatId].messages
-
-      for (const [index, givenMessage] of messageList.entries()) {
-        if (message.time > givenMessage.time) {
-          messageList.splice(index, 0, message)
-          return
-        }
-      }
-
-      messageList.push(message)
+    saveMessage: (state, { payload }: PayloadAction<SaveMessageOptions>) => {
+      saveMessage(state, payload)
     }
   }
 })

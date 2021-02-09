@@ -26,8 +26,7 @@ export const sendMessages = async (chatId: string): Promise<void> => {
   })
 
   message.timeSent = queuedMessage.time
-  store.dispatch(chatsActions.sendSucceeded(chatId))
-  store.dispatch(chatsActions.saveMessage({ chatId, message }))
+  store.dispatch(chatsActions.sendSucceeded({ chatId, message }))
 
   if (store.getState().chats.chats[chatId].queue.length > 0) {
     sendMessages(chatId).catch(console.error)
