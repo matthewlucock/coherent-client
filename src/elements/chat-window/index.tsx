@@ -1,11 +1,11 @@
 import * as React from 'react'
 
-import styles from './styles.scss'
-
 import { useSelector } from 'coherent/store'
 
 import { Messages } from './messages'
 import { MessageBar } from './message-bar'
+
+import styles from './styles.scss'
 
 export const ChatWindow: React.FC = () => {
   const chatId = useSelector(({ chats }) => chats.selected)

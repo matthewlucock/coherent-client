@@ -3,10 +3,10 @@ import clsx from 'clsx'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import type { IconProp } from '@fortawesome/fontawesome-svg-core'
 
-import styles from './styles.scss'
-
 import type { InputState } from 'coherent/globals'
 import type { InputValidator } from 'coherent/logic/input-validation'
+
+import styles from './styles.scss'
 
 type Props = Readonly<{
   type?: string

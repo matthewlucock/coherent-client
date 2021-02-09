@@ -1,12 +1,12 @@
 import * as React from 'react'
 
-import styles from './styles.scss'
-
 import { useSelector } from 'coherent/store'
 import type { BaseMessage, OfficialMessage } from 'coherent/store/chats'
 import { isMessageOfficial } from 'coherent/store/chats'
 
 import { MessageBubble } from 'coherent/components/message-bubble'
+
+import styles from './styles.scss'
 
 const getMessageSortTime = (message: BaseMessage): number => (
   isMessageOfficial(message) && message.timeSent !== undefined ? message.timeSent : message.time

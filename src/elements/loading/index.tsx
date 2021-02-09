@@ -1,8 +1,8 @@
 import * as React from 'react'
 
-import styles from './styles.scss'
-
 import { Logo } from 'coherent/components/logo'
+
+import styles from './styles.scss'
 
 export const Loading: React.FC = () => (
   <div className={styles.container}>

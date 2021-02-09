@@ -2,9 +2,9 @@ import * as React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowCircleUp as fasArrowCircleUp } from '@fortawesome/free-solid-svg-icons'
 
-import styles from './styles.scss'
-
 import { queueMessage } from 'coherent/logic/chats'
+
+import styles from './styles.scss'
 
 type Props = Readonly<{
   chatId: string

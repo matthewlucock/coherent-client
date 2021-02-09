@@ -1,6 +1,5 @@
 import { CustomError } from 'ts-custom-error'
 
-import { wait } from 'coherent/util'
 import { store } from 'coherent/store'
 
 export class ApiError extends CustomError {}
@@ -10,6 +9,11 @@ type Options = Readonly<{
   method?: HttpMethod
   data?: object
 }>
+
+// Used for adding an artificial delay to requests for testing/observing loading behavior
+const wait = async (delay: number): Promise<void> => (
+  await new Promise(resolve => setTimeout(resolve, delay))
+)
 
 export const apiRequest = async (path: string, options?: Options): Promise<any> => {
   await wait(1000)

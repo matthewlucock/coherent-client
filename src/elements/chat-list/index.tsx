@@ -1,11 +1,11 @@
 import * as React from 'react'
 
-import styles from './styles.scss'
-
 import { useSelector, useDispatch } from 'coherent/store'
 import { chatsActions } from 'coherent/store/chats'
 
 import { ChatCard } from 'coherent/components/chat-card'
+
+import styles from './styles.scss'
 
 export const ChatList: React.FC = () => {
   const chats = useSelector(({ chats }) => Object.entries(chats.chats))

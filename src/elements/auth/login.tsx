@@ -2,8 +2,6 @@ import * as React from 'react'
 import { Link } from 'react-router-dom'
 import { faUser as fasUser, faLock as fasLock } from '@fortawesome/free-solid-svg-icons'
 
-import styles from './styles.scss'
-
 import type { InputState } from 'coherent/globals'
 import { useSelector } from 'coherent/store'
 import { login } from 'coherent/logic/auth'
@@ -13,6 +11,8 @@ import { SIGNUP_ROUTE } from 'coherent/routes'
 import { FormInput } from 'coherent/components/form-input'
 import { FormSubmitButton } from 'coherent/components/form-submit-button'
 import { FormErrorMessage } from 'coherent/components/form-error-message'
+
+import styles from './styles.scss'
 
 export const Login: React.FC = () => {
   const requestState = useSelector(({ self }) => self.login.requestState)
