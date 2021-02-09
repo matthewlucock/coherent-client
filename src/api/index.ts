@@ -7,8 +7,20 @@ export class ApiError extends CustomError {}
 type HttpMethod = 'GET' | 'POST' | 'DELETE'
 type Options = Readonly<{
   method?: HttpMethod
+  params?: URLSearchParams
   data?: object
 }>
+
+const getRequestUrl = (path: string, params?: URLSearchParams): string => {
+  let url = `http://localhost:${SERVER_PORT}/${path}`
+
+  if (params !== undefined) {
+    const queryString = params.toString()
+    if (queryString.length > 0) url += `?${queryString}`
+  }
+
+  return url
+}
 
 // Used for adding an artificial delay to requests for testing/observing loading behavior
 const wait = async (delay: number): Promise<void> => (
@@ -19,12 +31,13 @@ export const apiRequest = async (path: string, options?: Options): Promise<any> 
   await wait(1000)
 
   const method = options?.method
+  const params = options?.params
   const data = options?.data
 
   const state = store.getState()
   const { clientId } = state.api
 
-  const request = new Request(`http://localhost:${SERVER_PORT}/${path}`, {
+  const request = new Request(getRequestUrl(path, params), {
     method,
     credentials: 'include',
     headers: {
