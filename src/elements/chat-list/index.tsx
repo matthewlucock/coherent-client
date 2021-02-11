@@ -2,8 +2,8 @@ import * as React from 'react'
 
 import styles from './styles.scss'
 
-import { useSelector, useDispatch } from 'coherent/store'
-import { chatsActions } from 'coherent/store/chats'
+import { useSelector } from 'coherent/store'
+import { selectChat } from 'coherent/logic/chats'
 
 import { ChatCard } from 'coherent/components/chat-card'
 
@@ -11,7 +11,6 @@ export const ChatList: React.FC = () => {
   const chats = useSelector(({ chats }) => Object.entries(chats.chats))
   const selected = useSelector(({ chats }) => chats.selected)
   const users = useSelector(({ users }) => users)
-  const dispatch = useDispatch()
 
   return (
     <div className={styles.container}>
@@ -22,7 +21,7 @@ export const ChatList: React.FC = () => {
             username={users[chat.participantIds[0]].displayUsername}
             message='Lorem ipsum dolor sit amet'
             selected={id === selected}
-            select={() => dispatch(chatsActions.select(id))}
+            select={() => selectChat(id)}
           />
         )
       })}

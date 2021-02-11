@@ -2,6 +2,8 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { nanoid } from 'nanoid/non-secure'
 
+import { REQUESTABLE } from './data'
+
 export type BaseMessage = Readonly<{
   id: string
   time: number
@@ -20,6 +22,7 @@ type ChatData = Readonly<{
 }>
 type ChatDataWithId = ChatData & Readonly<{ id: string }>
 type Chat = ChatData & Readonly<{
+  initialFetch: typeof REQUESTABLE
   messages: OfficialMessage[]
   sending: boolean
   queue: BaseMessage[]
@@ -56,6 +59,10 @@ type QueueMessagePayload = Readonly<{
   chatId: string
   content: string
 }>
+type InitialFetchSucceededPayload = Readonly<{
+  chatId: string
+  messages: readonly OfficialMessage[]
+}>
 
 const slice = createSlice({
   name: 'chats',
@@ -67,6 +74,7 @@ const slice = createSlice({
 
       state.chats[id] = {
         ...chat,
+        initialFetch: REQUESTABLE,
         messages: [],
         sending: false,
         queue: [],
@@ -76,6 +84,24 @@ const slice = createSlice({
 
     select: (state, { payload }: PayloadAction<string>) => {
       state.selected = payload
+    },
+
+    initialFetchPending: (state, { payload: chatId }: PayloadAction<string>) => {
+      const chat = state.chats[chatId]
+      chat.initialFetch.requestState = 'pending'
+    },
+
+    initialFetchSucceeded: (state, { payload }: PayloadAction<InitialFetchSucceededPayload>) => {
+      const { chatId, messages } = payload
+      const chat = state.chats[chatId]
+      chat.initialFetch.requestState = 'succeeded'
+
+      for (const message of messages) saveMessage(state, { chatId, message })
+    },
+
+    initialFetchFailed: (state, { payload: chatId }: PayloadAction<string>) => {
+      const chat = state.chats[chatId]
+      chat.initialFetch.requestState = 'failed'
     },
 
     queueMessage: (state, { payload }: PayloadAction<QueueMessagePayload>) => {

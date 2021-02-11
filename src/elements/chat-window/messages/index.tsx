@@ -1,4 +1,5 @@
 import * as React from 'react'
+import clsx from 'clsx'
 
 import styles from './styles.scss'
 
@@ -6,6 +7,7 @@ import { useSelector } from 'coherent/store'
 import type { BaseMessage, OfficialMessage } from 'coherent/store/chats'
 import { isMessageOfficial } from 'coherent/store/chats'
 
+import { LoadingIndicator } from 'coherent/components/loading-indicator'
 import { MessageBubble } from 'coherent/components/message-bubble'
 
 const getMessageSortTime = (message: BaseMessage): number => (
@@ -29,6 +31,9 @@ type Props = Readonly<{
 
 export const Messages: React.FC<Props> = props => {
   const selfId = useSelector(({ self }) => self.data!.id)
+  const initialFetchSucceeded = useSelector(({ chats }) => (
+    chats.chats[props.chatId].initialFetch.requestState === 'succeeded'
+  ))
   const messages = useSelector(({ chats }) => chats.chats[props.chatId].messages)
   const queue = useSelector(({ chats }) => chats.chats[props.chatId].queue)
 
@@ -36,15 +41,21 @@ export const Messages: React.FC<Props> = props => {
 
   return (
     <div className={styles.container}>
-      {messageList.map(message => {
-        const self = !isMessageOfficial(message) || message.userId === selfId
+      <div className={clsx(styles.initialFetch, initialFetchSucceeded && styles.succeeded)}>
+        <LoadingIndicator />
+      </div>
 
-        return (
-          <MessageBubble key={message.id} self={self}>
-            {message.content}
-          </MessageBubble>
-        )
-      })}
+      <div className={styles.messages}>
+        {messageList.map(message => {
+          const self = !isMessageOfficial(message) || message.userId === selfId
+
+          return (
+            <MessageBubble key={message.id} self={self}>
+              {message.content}
+            </MessageBubble>
+          )
+        })}
+      </div>
     </div>
   )
 }

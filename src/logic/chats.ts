@@ -2,6 +2,28 @@ import { store } from 'coherent/store'
 import { chatsActions } from 'coherent/store/chats'
 import { apiRequest } from 'coherent/api'
 
+export const fetchChat = async (chatId: string): Promise<void> => {
+  const chat = store.getState().chats.chats[chatId]
+
+  const params = new URLSearchParams()
+  if (chat.messages.length > 0) {
+    const oldestMessage = chat.messages[chat.messages.length - 1]
+    params.set('beforeTime', oldestMessage.time.toString())
+  }
+
+  const messages = await apiRequest(`chat/${chatId}`, { params })
+  store.dispatch(chatsActions.initialFetchSucceeded({ chatId, messages }))
+}
+
+export const selectChat = (chatId: string): void => {
+  store.dispatch(chatsActions.select(chatId))
+
+  const chat = store.getState().chats.chats[chatId]
+  if (chat.initialFetch.requestState === null || chat.initialFetch.requestState === 'failed') {
+    fetchChat(chatId).catch(console.error)
+  }
+}
+
 type QueueMessageArgs = Readonly<{
   chatId: string
   content: string
