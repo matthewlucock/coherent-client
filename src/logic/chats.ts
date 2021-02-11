@@ -14,7 +14,10 @@ export const queueMessage = ({ chatId, content }: QueueMessageArgs): void => {
 }
 
 export const sendMessages = async (chatId: string): Promise<void> => {
-  const chat = store.getState().chats.chats[chatId]
+  const state = store.getState()
+  const selfId = state.self.data!.id
+
+  const chat = state.chats.chats[chatId]
   if (chat.queue.length === 0) throw new Error('No messages to send')
   const queuedMessage = chat.queue[chat.queue.length - 1]
 
@@ -25,6 +28,7 @@ export const sendMessages = async (chatId: string): Promise<void> => {
     data: { content: queuedMessage.content }
   })
 
+  message.userId = selfId
   message.timeSent = queuedMessage.time
   store.dispatch(chatsActions.sendSucceeded({ chatId, message }))
 
