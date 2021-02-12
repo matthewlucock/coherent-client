@@ -1,9 +1,9 @@
 import * as React from 'react'
 import clsx from 'clsx'
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserCircle as fasUserCircle } from '@fortawesome/free-solid-svg-icons'
 
 import styles from './styles.scss'
+
+import { UserIcon } from 'coherent/components/user-icon'
 
 type Props = Readonly<{
   username: string
@@ -15,7 +15,7 @@ type Props = Readonly<{
 export const ChatCard: React.FC<Props> = props => (
   <div className={clsx(styles.container, props.selected && styles.selected)} onClick={props.select}>
     <div className={styles.card}>
-      <FontAwesomeIcon className={styles.userImage} icon={fasUserCircle} />
+      <UserIcon className={styles.userImage} />
 
       <div>
         <div className={styles.username}>{props.username}</div>
