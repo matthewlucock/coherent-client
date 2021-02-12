@@ -17,7 +17,8 @@ const getMessageList = (
   messages: readonly OfficialMessage[],
   queue: readonly BaseMessage[]
 ): readonly BaseMessage[] => {
-  if (messages.length === 0 || queue.length === 0) return messages
+  if (queue.length === 0) return messages
+  if (messages.length === 0) return queue
 
   const list = [...queue, ...messages]
   if (getMessageSortTime(queue[queue.length - 1]) > getMessageSortTime(messages[0])) return list
