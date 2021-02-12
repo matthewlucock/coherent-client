@@ -1,6 +1,6 @@
 import { CustomError } from 'ts-custom-error'
 
-import { store } from 'coherent/store'
+import { getState } from 'coherent/store'
 
 export class ApiError extends CustomError {}
 
@@ -34,7 +34,7 @@ export const apiRequest = async (path: string, options?: Options): Promise<any> 
   const params = options?.params
   const data = options?.data
 
-  const state = store.getState()
+  const state = getState()
   const { clientId } = state.api
 
   const request = new Request(getRequestUrl(path, params), {

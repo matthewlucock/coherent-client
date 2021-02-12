@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import { useSelector as baseUseSelector, useDispatch as baseUseDispatch } from 'react-redux'
+import { useSelector as baseUseSelector } from 'react-redux'
 import type { TypedUseSelectorHook } from 'react-redux'
 import { createLogger } from 'redux-logger'
 
@@ -19,8 +19,8 @@ export const store = configureStore({
   },
   middleware: getDefaultMiddleware => [...getDefaultMiddleware(), createLogger({ collapsed: true })]
 })
+export const getState = store.getState
+export const dispatch = store.dispatch
 
-type State = ReturnType<typeof store.getState>
+type State = ReturnType<typeof getState>
 export const useSelector: TypedUseSelectorHook<State> = baseUseSelector
-// eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-export const useDispatch = () => baseUseDispatch<typeof store.dispatch>()

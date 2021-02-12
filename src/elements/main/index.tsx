@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import styles from './styles.scss'
 
-import { useSelector, useDispatch } from 'coherent/store'
+import { useSelector, dispatch } from 'coherent/store'
 import { uiActions } from 'coherent/store/ui'
 
 import { AppBar } from 'coherent/elements/app-bar'
@@ -11,7 +11,6 @@ import { ChatWindow } from 'coherent/elements/chat-window'
 
 export const Main: React.FC = () => {
   const userMenuVisible = useSelector(({ ui }) => ui.userMenuVisible)
-  const dispatch = useDispatch()
 
   return (
     <div

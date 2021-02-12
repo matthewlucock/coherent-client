@@ -4,14 +4,13 @@ import { faUserCircle as fasUserCircle } from '@fortawesome/free-solid-svg-icons
 
 import styles from './styles.scss'
 
-import { useSelector, useDispatch } from 'coherent/store'
+import { useSelector, dispatch } from 'coherent/store'
 import { uiActions } from 'coherent/store/ui'
 
 import { Menu } from 'coherent/components/menu'
 
 export const UserMenu: React.FC = () => {
   const visible = useSelector(({ ui }) => ui.userMenuVisible)
-  const dispatch = useDispatch()
 
   return (
     <div

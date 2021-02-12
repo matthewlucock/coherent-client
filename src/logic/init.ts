@@ -1,4 +1,4 @@
-import { store } from 'coherent/store'
+import { dispatch } from 'coherent/store'
 import { apiActions } from 'coherent/store/api'
 import { usersActions } from 'coherent/store/users'
 import { chatsActions } from 'coherent/store/chats'
@@ -8,35 +8,35 @@ import { socket } from 'coherent/api/socket'
 import { fetchSelf } from './self'
 
 export const baseInit = async (): Promise<void> => {
-  store.dispatch(apiActions.baseInitPending())
+  dispatch(apiActions.baseInitPending())
 
   try {
     await fetchSelf()
   } catch (error) {
-    store.dispatch(apiActions.baseInitFailed())
+    dispatch(apiActions.baseInitFailed())
     return
   }
 
-  store.dispatch(apiActions.baseInitSucceeded())
+  dispatch(apiActions.baseInitSucceeded())
 }
 
 export const mainInit = async (): Promise<void> => {
-  store.dispatch(apiActions.mainInitPending())
+  dispatch(apiActions.mainInitPending())
 
   try {
     await socket.connect()
     const { chats, messages, users } = await apiRequest('init')
 
-    for (const chat of chats) store.dispatch(chatsActions.saveChat(chat))
+    for (const chat of chats) dispatch(chatsActions.saveChat(chat))
     for (const message of messages) {
       const { chatId, ...rest } = message
-      store.dispatch(chatsActions.saveMessage({ chatId, message: rest }))
+      dispatch(chatsActions.saveMessage({ chatId, message: rest }))
     }
-    for (const user of users) store.dispatch(usersActions.saveUser(user))
+    for (const user of users) dispatch(usersActions.saveUser(user))
   } catch (error) {
-    store.dispatch(apiActions.mainInitFailed())
+    dispatch(apiActions.mainInitFailed())
     return
   }
 
-  store.dispatch(apiActions.mainInitSucceeded())
+  dispatch(apiActions.mainInitSucceeded())
 }

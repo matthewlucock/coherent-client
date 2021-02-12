@@ -1,4 +1,4 @@
-import { store } from 'coherent/store'
+import { getState, dispatch } from 'coherent/store'
 import { chatsActions } from 'coherent/store/chats'
 
 const SOCKET_URL = 'ws://localhost:8081'
@@ -34,14 +34,14 @@ class Socket {
 
     if (message.type === 'message') {
       const { chatId, ...rest } = message.data
-      store.dispatch(chatsActions.saveMessage({ chatId, message: rest }))
+      dispatch(chatsActions.saveMessage({ chatId, message: rest }))
     }
   }
 
   public async connect (): Promise<void> {
     return await new Promise((resolve, reject) => {
       const socketUrl = new URL(SOCKET_URL)
-      socketUrl.searchParams.set('clientId', store.getState().api.clientId)
+      socketUrl.searchParams.set('clientId', getState().api.clientId)
 
       this.rawSocket = new WebSocket(socketUrl.toString())
 
