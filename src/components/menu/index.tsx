@@ -1,11 +1,14 @@
 import * as React from 'react'
+import clsx from 'clsx'
 
 import styles from './styles.scss'
 
-export const Menu: React.FC = props => {
-  return (
-    <div className={styles.container}>
-      {props.children}
-    </div>
-  )
-}
+type Props = Readonly<{
+  visible: boolean
+}>
+
+export const Menu: React.FC<Props> = props => (
+  <div className={clsx(styles.container, props.visible && styles.visible)}>
+    {props.children}
+  </div>
+)

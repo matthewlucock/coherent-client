@@ -4,4 +4,13 @@
   position: absolute;
   top: 100%;
   border: 1px solid;
+  visibility: hidden;
+  opacity: 0;
+  transition-property: visibility, opacity;
+  transition-duration: $transition-duration;
+
+  &.visible {
+    visibility: visible;
+    opacity: 1;
+  }
 }

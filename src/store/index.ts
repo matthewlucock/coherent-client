@@ -7,13 +7,15 @@ import { apiReducer } from './api'
 import { selfReducer } from './self'
 import { usersReducer } from './users'
 import { chatsReducer } from './chats'
+import { uiReducer } from './ui'
 
 export const store = configureStore({
   reducer: {
     api: apiReducer,
     self: selfReducer,
     users: usersReducer,
-    chats: chatsReducer
+    chats: chatsReducer,
+    ui: uiReducer
   },
   middleware: getDefaultMiddleware => [...getDefaultMiddleware(), createLogger({ collapsed: true })]
 })
