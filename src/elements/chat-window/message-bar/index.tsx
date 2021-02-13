@@ -5,6 +5,7 @@ import { faArrowCircleUp as fasArrowCircleUp } from '@fortawesome/free-solid-svg
 import styles from './styles.scss'
 
 import { queueMessage } from 'coherent/logic/chats'
+import { selfTyping } from 'coherent/logic/typing'
 
 type Props = Readonly<{
   chatId: string
@@ -18,6 +19,10 @@ export const MessageBar: React.FC<Props> = props => {
 
   const onInput = (): void => {
     if (messageBox.current === null) return
+
+    const newMessage = messageBox.current.value
+    if (newMessage.length >= message.length) selfTyping(props.chatId)
+
     setMessage(messageBox.current.value)
   }
 

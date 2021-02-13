@@ -1,5 +1,6 @@
 import { getState, dispatch } from 'coherent/store'
 import { chatsActions } from 'coherent/store/chats'
+import { participantTyping } from 'coherent/logic/typing'
 
 const SOCKET_URL = 'ws://localhost:8081'
 
@@ -15,12 +16,16 @@ class Socket {
   private rawSocket: WebSocket | null = null
   private pingIntervalId: number = 0
 
-  private send (data: any): void {
+  private baseSend (data: unknown): void {
     this.rawSocket!.send(JSON.stringify(data))
   }
 
+  public send (type: string, data: unknown): void {
+    this.baseSend({ type, data })
+  }
+
   private ping (): void {
-    this.send(PING)
+    this.baseSend(PING)
   }
 
   private onOpen (): void {
@@ -35,6 +40,11 @@ class Socket {
     if (message.type === 'message') {
       const { chatId, ...rest } = message.data
       dispatch(chatsActions.saveMessage({ chatId, message: rest }))
+    }
+
+    if (message.type === 'typing') {
+      const { chatId, userId } = message.data
+      participantTyping({ chatId, userId })
     }
   }
 

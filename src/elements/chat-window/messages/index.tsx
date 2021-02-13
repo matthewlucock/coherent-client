@@ -9,6 +9,7 @@ import { isMessageOfficial } from 'coherent/store/chats'
 
 import { LoadingIndicator } from 'coherent/components/loading-indicator'
 import { MessageBubble } from 'coherent/components/message-bubble'
+import { TypingIndicator } from 'coherent/components/typing-indicator'
 
 const getMessageSortTime = (message: BaseMessage): number => (
   isMessageOfficial(message) && message.timeSent !== undefined ? message.timeSent : message.time
@@ -37,6 +38,9 @@ export const Messages: React.FC<Props> = props => {
   ))
   const messages = useSelector(({ chats }) => chats.chats[props.chatId].messages)
   const queue = useSelector(({ chats }) => chats.chats[props.chatId].queue)
+  const typingParticipants = useSelector(({ chats }) => (
+    chats.chats[props.chatId].typing.participants
+  ))
 
   const messageList = getMessageList(messages, queue)
 
@@ -47,6 +51,12 @@ export const Messages: React.FC<Props> = props => {
       </div>
 
       <div className={styles.messages}>
+        {typingParticipants.map(userId => (
+          <MessageBubble key={userId} self={false}>
+            <TypingIndicator />
+          </MessageBubble>
+        ))}
+
         {messageList.map(message => {
           const self = !isMessageOfficial(message) || message.userId === selfId
 

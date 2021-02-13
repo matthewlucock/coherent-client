@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { nanoid } from 'nanoid/non-secure'
 
+import { removeFromArray } from 'coherent/util'
 import { REQUESTABLE } from './data'
 
 export type BaseMessage = Readonly<{
@@ -27,6 +28,10 @@ type Chat = ChatData & Readonly<{
   sending: boolean
   queue: BaseMessage[]
   failedToSend: BaseMessage[]
+  typing: {
+    lastSelfTypingTime: number
+    participants: string[]
+  }
 }>
 
 type State = Readonly<{
@@ -63,6 +68,14 @@ type InitialFetchSucceededPayload = Readonly<{
   chatId: string
   messages: readonly OfficialMessage[]
 }>
+type SetSelfTypingTimePayload = Readonly<{
+  chatId: string
+  time: number
+}>
+type SetParticipantTypingPayload = Readonly<{
+  chatId: string
+  userId: string
+}>
 
 const slice = createSlice({
   name: 'chats',
@@ -78,7 +91,11 @@ const slice = createSlice({
         messages: [],
         sending: false,
         queue: [],
-        failedToSend: []
+        failedToSend: [],
+        typing: {
+          lastSelfTypingTime: 0,
+          participants: []
+        }
       }
     },
 
@@ -132,6 +149,27 @@ const slice = createSlice({
 
     saveMessage: (state, { payload }: PayloadAction<SaveMessageOptions>) => {
       saveMessage(state, payload)
+    },
+
+    setSelfTypingTime: (state, { payload }: PayloadAction<SetSelfTypingTimePayload>) => {
+      const { chatId, time } = payload
+      const chat = state.chats[chatId]
+      chat.typing.lastSelfTypingTime = time
+    },
+
+    setParticipantTyping: (state, { payload }: PayloadAction<SetParticipantTypingPayload>) => {
+      const { chatId, userId } = payload
+      const chat = state.chats[chatId]
+      if (!chat.typing.participants.includes(userId)) chat.typing.participants.unshift(userId)
+    },
+
+    setParticipantStoppedTyping: (
+      state,
+      { payload }: PayloadAction<SetParticipantTypingPayload>
+    ) => {
+      const { chatId, userId } = payload
+      const chat = state.chats[chatId]
+      removeFromArray(chat.typing.participants, userId)
     }
   }
 })
