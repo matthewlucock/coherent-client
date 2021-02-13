@@ -1,0 +1,24 @@
+import { dispatch } from 'coherent/store'
+import { chatsActions } from 'coherent/store/chats'
+import { participantTyping } from 'coherent/logic/typing'
+
+export type SocketMessage = Readonly<{
+  type: string
+  data?: any
+}>
+
+export const handleSocketMessage = (message: SocketMessage): void => {
+  if (message.type === 'message') {
+    const { chatId, ...rest } = message.data
+    dispatch(chatsActions.saveMessage({ chatId, message: rest }))
+    return
+  }
+
+  if (message.type === 'typing') {
+    const { chatId, userId } = message.data
+    participantTyping({ chatId, userId })
+    return
+  }
+
+  console.warn(`Unrecognised socket message type: ${message.type}`)
+}

@@ -10,7 +10,7 @@ export const selfTyping = (chatId: string): void => {
   if (now - lastSelfTypingTime < 1000) return
 
   dispatch(chatsActions.setSelfTypingTime({ chatId, time: now }))
-  socket.send('typing', chatId)
+  socket.send({ type: 'typing', data: chatId })
 }
 
 const TYPING_TIMEOUT_DURATION = 2000
