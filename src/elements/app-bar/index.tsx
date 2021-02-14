@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import styles from './styles.scss'
 
-import { UserMenu } from 'coherent/elements/user-menu'
+import { SettingsMenu } from 'coherent/elements/settings-menu'
 import { Friends } from 'coherent/elements/friends'
 import { Title } from './title'
 import { Logo } from 'coherent/components/logo'
@@ -12,8 +12,8 @@ export const AppBar: React.FC = () => (
     <Logo className={styles.logo} />
 
     <div className={styles.group}>
-      <UserMenu />
       <Friends />
+      <SettingsMenu />
     </div>
 
     <Title />
