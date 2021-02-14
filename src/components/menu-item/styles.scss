@@ -1,0 +1,20 @@
+@use 'globals' as *;
+
+$base-padding: .4em;
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: $base-padding $base-padding * 2;
+  cursor: pointer;
+  transition-property: background;
+  transition-duration: $transition-duration;
+
+  &:hover {
+    background: hsl(0, 0%, 90%);
+  }
+}
+
+.icon {
+  margin-right: .5em;
+}

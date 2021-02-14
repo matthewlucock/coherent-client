@@ -1,9 +1,13 @@
 @use 'globals' as *;
 
-.container {
+$arrow-size: .45em;
+
+.menu {
+  font-size: .5em;
   position: absolute;
   top: 100%;
-  border: 1px solid;
+  width: 10em;
+  box-shadow: 0 0 1em hsl(0, 0%, 50%);
   visibility: hidden;
   opacity: 0;
   transition-property: visibility, opacity;
@@ -13,4 +17,13 @@
     visibility: visible;
     opacity: 1;
   }
+}
+
+.arrow {
+  bottom: 100%;
+  width: 0;
+  height: 0;
+  border-left: $arrow-size solid transparent;
+  border-right: $arrow-size solid transparent;
+  border-bottom: $arrow-size solid white;
 }
