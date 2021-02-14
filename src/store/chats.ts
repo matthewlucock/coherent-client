@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import { nanoid } from 'nanoid/non-secure'
 
-import { removeFromArray } from 'coherent/util'
+import { simpleRemoveFromArray } from 'coherent/util'
 import { REQUESTABLE } from './data'
 
 export type BaseMessage = Readonly<{
@@ -159,7 +159,7 @@ const slice = createSlice({
       const { chatId, userId } = payload
       const chat = state[chatId]
 
-      removeFromArray(chat.typing.participants, userId)
+      simpleRemoveFromArray(chat.typing.participants, userId)
     }
   }
 })
