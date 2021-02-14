@@ -65,10 +65,7 @@ const saveMessage = (state: State, { chatId, message }: SaveMessageOptions): voi
   messageList.push(message)
 }
 
-type SaveChatPayload = Readonly<{
-  id: string
-  chatData: ChatDataFromServer
-}>
+type SaveChatPayload = ChatDataFromServer & Readonly<{ id: string }>
 type QueueMessagePayload = Readonly<{
   chatId: string
   content: string
@@ -92,7 +89,7 @@ const slice = createSlice({
 
   reducers: {
     saveChat: (state, { payload }: PayloadAction<SaveChatPayload>) => {
-      const { id, chatData } = payload
+      const { id, ...chatData } = payload
       state[id] = { ...chatData, ...initialDynamicChatData }
     },
 
