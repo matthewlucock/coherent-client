@@ -1,9 +1,11 @@
 import { getState, dispatch } from 'coherent/store'
-import { chatsActions } from 'coherent/store/chats'
+import { chatActions } from 'coherent/store/chats'
+import { uiActions } from 'coherent/store/ui'
 import { apiRequest } from 'coherent/api'
 
 export const fetchChat = async (chatId: string): Promise<void> => {
-  const chat = getState().chats.chats[chatId]
+  const state = getState()
+  const chat = state.chats[chatId]
 
   const params = new URLSearchParams()
   if (chat.messages.length > 0) {
@@ -12,13 +14,15 @@ export const fetchChat = async (chatId: string): Promise<void> => {
   }
 
   const messages = await apiRequest(`chat/${chatId}`, { params })
-  dispatch(chatsActions.initialFetchSucceeded({ chatId, messages }))
+  dispatch(chatActions.initialFetchSucceeded({ chatId, messages }))
 }
 
 export const selectChat = (chatId: string): void => {
-  dispatch(chatsActions.select(chatId))
+  const state = getState()
+  const chat = state.chats[chatId]
 
-  const chat = getState().chats.chats[chatId]
+  dispatch(uiActions.selectChat(chatId))
+
   if (chat.initialFetch.requestState === null || chat.initialFetch.requestState === 'failed') {
     fetchChat(chatId).catch(console.error)
   }
@@ -29,21 +33,22 @@ type QueueMessageArgs = Readonly<{
   content: string
 }>
 export const queueMessage = ({ chatId, content }: QueueMessageArgs): void => {
-  const chat = getState().chats.chats[chatId]
+  const state = getState()
+  const chat = state.chats[chatId]
 
-  dispatch(chatsActions.queueMessage({ chatId, content }))
+  dispatch(chatActions.queueMessage({ chatId, content }))
   if (!chat.sending) sendMessages(chatId).catch(console.error)
 }
 
 export const sendMessages = async (chatId: string): Promise<void> => {
   const state = getState()
+  const chat = state.chats[chatId]
   const selfId = state.self.data!.id
 
-  const chat = state.chats.chats[chatId]
   if (chat.queue.length === 0) throw new Error('No messages to send')
   const queuedMessage = chat.queue[chat.queue.length - 1]
 
-  dispatch(chatsActions.sendPending(chatId))
+  dispatch(chatActions.sendPending(chatId))
 
   const message = await apiRequest(`chat/${chatId}`, {
     method: 'POST',
@@ -52,9 +57,12 @@ export const sendMessages = async (chatId: string): Promise<void> => {
 
   message.userId = selfId
   message.timeSent = queuedMessage.time
-  dispatch(chatsActions.sendSucceeded({ chatId, message }))
+  dispatch(chatActions.sendSucceeded({ chatId, message }))
 
-  if (getState().chats.chats[chatId].queue.length > 0) {
+  const newState = getState()
+  const newChat = newState.chats[chatId]
+
+  if (newChat.queue.length > 0) {
     sendMessages(chatId).catch(console.error)
   }
 }

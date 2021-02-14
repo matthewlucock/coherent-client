@@ -8,7 +8,7 @@ import { Messages } from './messages'
 import { MessageBar } from './message-bar'
 
 export const ChatWindow: React.FC = () => {
-  const chatId = useSelector(({ chats }) => chats.selected)
+  const chatId = useSelector(({ ui }) => ui.selectedChat)
 
   return (
     <div className={styles.container}>

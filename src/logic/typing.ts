@@ -1,15 +1,15 @@
 import { getState, dispatch } from 'coherent/store'
-import { chatsActions } from 'coherent/store/chats'
+import { chatActions } from 'coherent/store/chats'
 import { socket } from 'coherent/api/socket'
 
 export const selfTyping = (chatId: string): void => {
   const state = getState()
-  const { lastSelfTypingTime } = state.chats.chats[chatId].typing
+  const chat = state.chats[chatId]
 
   const now = Date.now()
-  if (now - lastSelfTypingTime < 1000) return
+  if (now - chat.typing.lastSelfTypingTime < 1000) return
 
-  dispatch(chatsActions.setSelfTypingTime({ chatId, time: now }))
+  dispatch(chatActions.setSelfTypingTime({ chatId, time: now }))
   socket.send({ type: 'typing', data: chatId })
 }
 
@@ -27,7 +27,7 @@ type ParticipantTypingArgs = Readonly<{
 
 const setParticipantTypingTimeout = ({ chatId, userId }: ParticipantTypingArgs): void => {
   const timeoutId = window.setTimeout((): void => {
-    dispatch(chatsActions.setParticipantStoppedTyping({ chatId, userId }))
+    dispatch(chatActions.setParticipantStoppedTyping({ chatId, userId }))
     typingTimeouts.get(chatId)?.delete(userId)
   }, TYPING_TIMEOUT_DURATION)
 
@@ -38,7 +38,7 @@ export const participantTyping = ({ chatId, userId }: ParticipantTypingArgs): vo
   const timeoutId = typingTimeouts.get(chatId)?.get(userId)
 
   if (timeoutId === undefined) {
-    dispatch(chatsActions.setParticipantTyping({ chatId, userId }))
+    dispatch(chatActions.setParticipantTyping({ chatId, userId }))
   } else {
     window.clearTimeout(timeoutId)
   }

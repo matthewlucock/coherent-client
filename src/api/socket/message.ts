@@ -1,5 +1,5 @@
 import { dispatch } from 'coherent/store'
-import { chatsActions } from 'coherent/store/chats'
+import { chatActions } from 'coherent/store/chats'
 import { participantTyping } from 'coherent/logic/typing'
 
 export type SocketMessage = Readonly<{
@@ -10,7 +10,7 @@ export type SocketMessage = Readonly<{
 export const handleSocketMessage = (message: SocketMessage): void => {
   if (message.type === 'message') {
     const { chatId, ...rest } = message.data
-    dispatch(chatsActions.saveMessage({ chatId, message: rest }))
+    dispatch(chatActions.saveMessage({ chatId, message: rest }))
     return
   }
 

@@ -34,12 +34,12 @@ type Props = Readonly<{
 export const Messages: React.FC<Props> = props => {
   const selfId = useSelector(({ self }) => self.data!.id)
   const initialFetchSucceeded = useSelector(({ chats }) => (
-    chats.chats[props.chatId].initialFetch.requestState === 'succeeded'
+    chats[props.chatId].initialFetch.requestState === 'succeeded'
   ))
-  const messages = useSelector(({ chats }) => chats.chats[props.chatId].messages)
-  const queue = useSelector(({ chats }) => chats.chats[props.chatId].queue)
+  const messages = useSelector(({ chats }) => chats[props.chatId].messages)
+  const queue = useSelector(({ chats }) => chats[props.chatId].queue)
   const typingParticipants = useSelector(({ chats }) => (
-    chats.chats[props.chatId].typing.participants
+    chats[props.chatId].typing.participants
   ))
 
   const messageList = getMessageList(messages, queue)

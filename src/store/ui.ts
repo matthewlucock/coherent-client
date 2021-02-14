@@ -3,10 +3,11 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 type State = Readonly<{
   userMenuVisible: boolean
+  selectedChat: string | null
 }>
-
 const initialState: State = {
-  userMenuVisible: false
+  userMenuVisible: false,
+  selectedChat: null
 }
 
 const slice = createSlice({
@@ -16,6 +17,10 @@ const slice = createSlice({
   reducers: {
     setUserMenuVisible: (state, { payload: userMenuShowing }: PayloadAction<boolean>) => {
       state.userMenuVisible = userMenuShowing
+    },
+
+    selectChat: (state, { payload: chatId }: PayloadAction<string>) => {
+      state.selectedChat = chatId
     }
   }
 })

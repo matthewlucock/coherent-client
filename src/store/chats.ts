@@ -18,11 +18,10 @@ export const isMessageOfficial = (message: BaseMessage): message is OfficialMess
   (message as OfficialMessage).userId !== undefined
 )
 
-type ChatData = Readonly<{
+type ChatDataFromServer = Readonly<{
   participantIds: string[]
 }>
-type ChatDataWithId = ChatData & Readonly<{ id: string }>
-type Chat = ChatData & Readonly<{
+type DynamicChatData = Readonly<{
   initialFetch: typeof REQUESTABLE
   messages: OfficialMessage[]
   sending: boolean
@@ -33,14 +32,20 @@ type Chat = ChatData & Readonly<{
     participants: string[]
   }
 }>
+type Chat = ChatDataFromServer & DynamicChatData
 
-type State = Readonly<{
-  chats: { [id: string]: Chat }
-  selected: string | null
-}>
-const initialState: State = {
-  chats: {},
-  selected: null
+type State = { [id: string]: Chat }
+const initialState: State = {}
+const initialDynamicChatData: DynamicChatData = {
+  initialFetch: REQUESTABLE,
+  messages: [],
+  sending: false,
+  queue: [],
+  failedToSend: [],
+  typing: {
+    lastSelfTypingTime: 0,
+    participants: []
+  }
 }
 
 type SaveMessageOptions = Readonly<{
@@ -48,7 +53,7 @@ type SaveMessageOptions = Readonly<{
   message: OfficialMessage
 }>
 const saveMessage = (state: State, { chatId, message }: SaveMessageOptions): void => {
-  const messageList = state.chats[chatId].messages
+  const messageList = state[chatId].messages
 
   for (const [index, givenMessage] of messageList.entries()) {
     if (message.time > givenMessage.time) {
@@ -60,6 +65,10 @@ const saveMessage = (state: State, { chatId, message }: SaveMessageOptions): voi
   messageList.push(message)
 }
 
+type SaveChatPayload = Readonly<{
+  id: string
+  chatData: ChatDataFromServer
+}>
 type QueueMessagePayload = Readonly<{
   chatId: string
   content: string
@@ -82,48 +91,34 @@ const slice = createSlice({
   initialState,
 
   reducers: {
-    saveChat: (state, { payload }: PayloadAction<ChatDataWithId>) => {
-      const { id, ...chat } = payload
-
-      state.chats[id] = {
-        ...chat,
-        initialFetch: REQUESTABLE,
-        messages: [],
-        sending: false,
-        queue: [],
-        failedToSend: [],
-        typing: {
-          lastSelfTypingTime: 0,
-          participants: []
-        }
-      }
-    },
-
-    select: (state, { payload }: PayloadAction<string>) => {
-      state.selected = payload
+    saveChat: (state, { payload }: PayloadAction<SaveChatPayload>) => {
+      const { id, chatData } = payload
+      state[id] = { ...chatData, ...initialDynamicChatData }
     },
 
     initialFetchPending: (state, { payload: chatId }: PayloadAction<string>) => {
-      const chat = state.chats[chatId]
+      const chat = state[chatId]
       chat.initialFetch.requestState = 'pending'
     },
-
     initialFetchSucceeded: (state, { payload }: PayloadAction<InitialFetchSucceededPayload>) => {
       const { chatId, messages } = payload
-      const chat = state.chats[chatId]
-      chat.initialFetch.requestState = 'succeeded'
+      const chat = state[chatId]
 
+      chat.initialFetch.requestState = 'succeeded'
       for (const message of messages) saveMessage(state, { chatId, message })
     },
-
     initialFetchFailed: (state, { payload: chatId }: PayloadAction<string>) => {
-      const chat = state.chats[chatId]
+      const chat = state[chatId]
       chat.initialFetch.requestState = 'failed'
+    },
+
+    saveMessage: (state, { payload }: PayloadAction<SaveMessageOptions>) => {
+      saveMessage(state, payload)
     },
 
     queueMessage: (state, { payload }: PayloadAction<QueueMessagePayload>) => {
       const { chatId, content } = payload
-      const chat = state.chats[chatId]
+      const chat = state[chatId]
 
       chat.queue.unshift({
         id: nanoid(2),
@@ -131,48 +126,43 @@ const slice = createSlice({
         time: Date.now()
       })
     },
-
     sendPending: (state, { payload: chatId }: PayloadAction<string>) => {
-      const chat = state.chats[chatId]
+      const chat = state[chatId]
       chat.sending = true
     },
-
     sendSucceeded: (state, { payload }: PayloadAction<SaveMessageOptions>) => {
       const { chatId, message } = payload
+      const chat = state[chatId]
 
-      const chat = state.chats[chatId]
       chat.queue.pop()
       chat.sending = false
 
       saveMessage(state, { chatId, message })
     },
 
-    saveMessage: (state, { payload }: PayloadAction<SaveMessageOptions>) => {
-      saveMessage(state, payload)
-    },
-
     setSelfTypingTime: (state, { payload }: PayloadAction<SetSelfTypingTimePayload>) => {
       const { chatId, time } = payload
-      const chat = state.chats[chatId]
+      const chat = state[chatId]
+
       chat.typing.lastSelfTypingTime = time
     },
-
     setParticipantTyping: (state, { payload }: PayloadAction<SetParticipantTypingPayload>) => {
       const { chatId, userId } = payload
-      const chat = state.chats[chatId]
-      if (!chat.typing.participants.includes(userId)) chat.typing.participants.unshift(userId)
-    },
+      const chat = state[chatId]
 
+      chat.typing.participants.unshift(userId)
+    },
     setParticipantStoppedTyping: (
       state,
       { payload }: PayloadAction<SetParticipantTypingPayload>
     ) => {
       const { chatId, userId } = payload
-      const chat = state.chats[chatId]
+      const chat = state[chatId]
+
       removeFromArray(chat.typing.participants, userId)
     }
   }
 })
 
 export const chatsReducer = slice.reducer
-export const chatsActions = slice.actions
+export const chatActions = slice.actions

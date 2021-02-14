@@ -8,8 +8,11 @@ import { UserIcon } from 'coherent/components/user-icon'
 
 export const Title: React.FC = () => {
   const chatParticipant: string | null = useSelector(state => {
-    if (state.chats.selected === null) return null
-    return state.users[state.chats.chats[state.chats.selected].participantIds[0]].displayUsername
+    const { selectedChat } = state.ui
+    if (selectedChat === null) return null
+
+    const user = state.chats[selectedChat].participantIds[0]
+    return state.users[user].displayUsername
   })
 
   return (

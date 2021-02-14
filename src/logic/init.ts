@@ -1,7 +1,7 @@
 import { dispatch } from 'coherent/store'
 import { apiActions } from 'coherent/store/api'
 import { usersActions } from 'coherent/store/users'
-import { chatsActions } from 'coherent/store/chats'
+import { chatActions } from 'coherent/store/chats'
 import { apiRequest } from 'coherent/api'
 import { socket } from 'coherent/api/socket'
 
@@ -27,10 +27,10 @@ export const mainInit = async (): Promise<void> => {
     await socket.connect()
     const { chats, messages, users } = await apiRequest('init')
 
-    for (const chat of chats) dispatch(chatsActions.saveChat(chat))
+    for (const chat of chats) dispatch(chatActions.saveChat(chat))
     for (const message of messages) {
       const { chatId, ...rest } = message
-      dispatch(chatsActions.saveMessage({ chatId, message: rest }))
+      dispatch(chatActions.saveMessage({ chatId, message: rest }))
     }
     for (const user of users) dispatch(usersActions.saveUser(user))
   } catch (error) {
