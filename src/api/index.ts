@@ -1,5 +1,6 @@
 import { CustomError } from 'ts-custom-error'
 
+import { SERVER_DOMAIN } from 'coherent/globals'
 import { getState } from 'coherent/store'
 
 export class ApiError extends CustomError {}
@@ -11,15 +12,10 @@ type Options = Readonly<{
   data?: object
 }>
 
-const getRequestUrl = (path: string, params?: URLSearchParams): string => {
-  let url = `http://localhost:${SERVER_PORT}/${path}`
-
-  if (params !== undefined) {
-    const queryString = params.toString()
-    if (queryString.length > 0) url += `?${queryString}`
-  }
-
-  return url
+const getQueryString = (params: URLSearchParams): string => {
+  const queryString = params.toString()
+  if (queryString.length > 0) return `?${queryString}`
+  return ''
 }
 
 // Used for adding an artificial delay to requests for testing/observing loading behavior
@@ -37,7 +33,9 @@ export const apiRequest = async (path: string, options?: Options): Promise<any> 
   const state = getState()
   const { clientId } = state.api
 
-  const request = new Request(getRequestUrl(path, params), {
+  if (params !== undefined) path += getQueryString(params)
+
+  const request = new Request(`http://${SERVER_DOMAIN}/${path}`, {
     method,
     credentials: 'include',
     headers: {
@@ -49,7 +47,6 @@ export const apiRequest = async (path: string, options?: Options): Promise<any> 
   })
 
   let response: Response
-
   try {
     response = await fetch(request)
   } catch (error) {
@@ -57,10 +54,17 @@ export const apiRequest = async (path: string, options?: Options): Promise<any> 
     throw new ApiError('No connection')
   }
 
-  const responseData = await response.json()
+  const responseText = await response.text()
+  if (responseText.length === 0 && response.ok) return null
+
+  let responseData: any
+  try {
+    responseData = JSON.parse(responseText)
+  } catch (error) {
+    console.error(`Could not parse JSON for request: ${path}`)
+    throw error
+  }
+
   if (!response.ok) throw new ApiError(responseData.message)
   return responseData
 }
-
-// temp
-;(window as any).apiRequest = apiRequest

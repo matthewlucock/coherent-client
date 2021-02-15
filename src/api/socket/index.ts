@@ -1,9 +1,9 @@
+import { SERVER_DOMAIN } from 'coherent/globals'
 import { getState } from 'coherent/store'
 
 import { handleSocketMessage } from './message'
 import type { SocketMessage } from './message'
 
-const SOCKET_URL = 'ws://localhost:8081'
 const PING_INTERVAL = 10 * 1000
 
 class Socket {
@@ -36,7 +36,7 @@ class Socket {
 
   public async connect (): Promise<void> {
     return await new Promise((resolve, reject) => {
-      const socketUrl = new URL(SOCKET_URL)
+      const socketUrl = new URL(`ws://${SERVER_DOMAIN}`)
       socketUrl.searchParams.set('clientId', getState().api.clientId)
 
       this.rawSocket = new WebSocket(socketUrl.toString())
