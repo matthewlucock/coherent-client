@@ -13,7 +13,7 @@ type Props = Readonly<{
 
 export const MenuItem: React.FC<Props> = props => (
   <div className={clsx(styles.menuItem, props.className)} onClick={props.onClick}>
-    {props.icon && (
+    {props.icon !== undefined && (
       <FontAwesomeIcon className={styles.icon} icon={props.icon} />
     )}
     {props.children}

@@ -2,10 +2,15 @@
 
 .container {
   @extend %app-bar-item-container;
+  display: flex;
+  justify-content: center;
   position: relative;
 }
 
 .icon-container {
   @extend %app-bar-icon-container;
-  color: red;
+}
+
+.logout {
+  color: hsl(0, 100%, 45%);
 }

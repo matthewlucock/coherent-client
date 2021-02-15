@@ -15,7 +15,7 @@ type Props = Readonly<{
 export const ChatCard: React.FC<Props> = props => (
   <div className={clsx(styles.container, props.selected && styles.selected)} onClick={props.select}>
     <div className={styles.card}>
-      <UserIcon className={styles.userImage} />
+      <UserIcon className={styles.userIcon} />
 
       <div>
         <div className={styles.username}>{props.username}</div>
