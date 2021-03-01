@@ -11,13 +11,15 @@ type State = Readonly<{
   fetch: typeof REQUESTABLE
   login: typeof REQUESTABLE
   signup: typeof REQUESTABLE
+  logout: typeof REQUESTABLE
 }>
 
 const initialState: State = {
   data: null,
   fetch: REQUESTABLE,
   login: REQUESTABLE,
-  signup: REQUESTABLE
+  signup: REQUESTABLE,
+  logout: REQUESTABLE
 }
 
 const slice = createSlice({
@@ -65,6 +67,10 @@ const slice = createSlice({
     signupFailed: (state, { payload }: PayloadAction<string>) => {
       state.signup.requestState = 'failed'
       state.signup.errorMessage = payload
+    },
+
+    logoutPending: state => {
+      state.logout.requestState = 'pending'
     }
   }
 })

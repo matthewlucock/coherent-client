@@ -1,4 +1,5 @@
-import { dispatch } from 'coherent/store'
+import { dispatch, clearStore } from 'coherent/store'
+import { apiActions } from 'coherent/store/api'
 import { selfActions } from 'coherent/store/self'
 import { apiRequest, ApiError } from 'coherent/api'
 
@@ -29,4 +30,13 @@ export const signup = async (auth: Auth): Promise<void> => {
     const errorMessage = error instanceof ApiError ? error.message : 'Could not sign up'
     dispatch(selfActions.signupFailed(errorMessage))
   }
+}
+
+export const logout = async (): Promise<void> => {
+  dispatch(selfActions.logoutPending())
+
+  await apiRequest('auth/logout', { method: 'POST' })
+
+  dispatch(clearStore())
+  dispatch(apiActions.baseInitSucceeded())
 }

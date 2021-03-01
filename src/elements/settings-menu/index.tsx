@@ -5,6 +5,7 @@ import styles from './styles.scss'
 
 import { useSelector, dispatch } from 'coherent/store'
 import { uiActions } from 'coherent/store/ui'
+import { logout } from 'coherent/logic/auth'
 
 import { Menu } from 'coherent/components/menu'
 import { MenuItem } from 'coherent/components/menu-item'
@@ -33,7 +34,13 @@ export const SettingsMenu: React.FC = () => {
       </div>
 
       <Menu button={button} offset={OFFSET} visible={visible}>
-        <MenuItem className={styles.logout} icon={fasSignOutAlt}>
+        <MenuItem
+          className={styles.logout}
+          icon={fasSignOutAlt}
+          onClick={(): void => {
+            logout().catch(console.error)
+          }}
+        >
           Log out
         </MenuItem>
       </Menu>
