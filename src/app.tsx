@@ -4,18 +4,13 @@ import { Switch, useHistory } from 'react-router'
 import themeStyles from './themes.scss'
 import './main.scss'
 
+import { LOGIN_ROUTE, SIGNUP_ROUTE, MAIN_ROUTE } from './globals'
 import { forceReflowOnElement } from './util'
+import { AuthenticatedRoute, UnauthenticatedRoute } from './util/routes'
 import { useSelector } from './store'
 import { getInitPending } from './store/api'
 import { getAuthenticated } from './store/self'
 import { baseInit, mainInit } from './logic/init'
-import {
-  AuthenticatedRoute,
-  UnauthenticatedRoute,
-  LOGIN_ROUTE,
-  SIGNUP_ROUTE,
-  MAIN_ROUTE
-} from './routes'
 
 import { Loading } from './elements/loading'
 import { Auth } from './elements/auth'

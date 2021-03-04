@@ -4,11 +4,11 @@ import { faUserCircle as fasUserCircle, faLock as fasLock } from '@fortawesome/f
 
 import styles from './styles.scss'
 
+import { LOGIN_ROUTE } from 'coherent/globals'
 import type { InputState } from 'coherent/globals'
 import { useSelector } from 'coherent/store'
 import { signup } from 'coherent/logic/auth'
 import { usernameInputValidator } from 'coherent/logic/input-validation'
-import { LOGIN_ROUTE } from 'coherent/routes'
 
 import { FormInput } from 'coherent/components/form-input'
 import { FormSubmitButton } from 'coherent/components/form-submit-button'

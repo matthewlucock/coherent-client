@@ -3,7 +3,7 @@ import { Switch, Route } from 'react-router-dom'
 
 import styles from './styles.scss'
 
-import { LOGIN_ROUTE, SIGNUP_ROUTE } from 'coherent/routes'
+import { LOGIN_ROUTE, SIGNUP_ROUTE } from 'coherent/globals'
 
 import { Login } from './login'
 import { Signup } from './signup'

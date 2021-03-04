@@ -2,12 +2,9 @@ import * as React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import type { RouteProps } from 'react-router-dom'
 
+import { LOGIN_ROUTE, MAIN_ROUTE } from 'coherent/globals'
 import { useSelector } from 'coherent/store'
 import { getAuthenticated } from 'coherent/store/self'
-
-export const LOGIN_ROUTE = '/login'
-export const SIGNUP_ROUTE = '/signup'
-export const MAIN_ROUTE = '/c'
 
 export const AuthenticatedRoute: React.FC<RouteProps> = props => {
   const { children, ...rest } = props
