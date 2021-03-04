@@ -1,7 +1,7 @@
 @use 'globals' as *;
 
 .container {
-  padding: .5em;
+  padding: .25em .5em;
   cursor: pointer;
 
   &.selected {
@@ -11,7 +11,8 @@
 
 .card {
   display: flex;
-  padding: .25em;
+  padding: .5em .75em;
+  border-radius: .75em;
 
   .selected & {
     background-color: var(--second-main-color);

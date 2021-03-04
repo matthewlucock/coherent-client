@@ -7,23 +7,21 @@
   }
 }
 
-$second-subtle-color-modifier: 40%;
-
 @function make-light-theme() {
   $modifier: -10%;
 
   $main-color: hsl(0, 0%, 100%);
+  $text-color: hsl(0, 0%, 0%);
   $second-main-color: color.adjust($main-color, $lightness: $modifier);
   $third-main-color: color.adjust($main-color, $lightness: 2 * $modifier);
 
   @return (
     'main-color': $main-color,
-    'text-color': hsl(0, 0%, 0%),
+    'text-color': $text-color,
     'second-main-color': $second-main-color,
     'third-main-color': $third-main-color,
-    'second-subtle-color': color.adjust(
-      $second-main-color, $lightness: -1 * $second-subtle-color-modifier
-    ),
+    'faded-color': color.adjust($text-color, $lightness: 30%),
+    'second-faded-color': color.adjust($second-main-color, $lightness: -40%),
 
     'menu-color': $main-color,
     'second-menu-color': $second-main-color,
@@ -37,17 +35,17 @@ $second-subtle-color-modifier: 40%;
   $modifier: 15%;
 
   $main-color: hsl(0, 0%, 10%);
+  $text-color: hsl(0, 0%, 100%);
   $second-main-color: color.adjust($main-color, $lightness: $modifier);
   $third-main-color: color.adjust($main-color, $lightness: 2 * $modifier);
 
   @return (
     'main-color': $main-color,
-    'text-color': hsl(0, 0%, 100%),
+    'text-color': $text-color,
     'second-main-color': $second-main-color,
     'third-main-color': $third-main-color,
-    'second-subtle-color': color.adjust(
-      $second-main-color, $lightness: $second-subtle-color-modifier
-    ),
+    'faded-color': color.adjust($text-color, $lightness: -25%),
+    'second-faded-color': color.adjust($second-main-color, $lightness: 40%),
 
     'menu-color': $second-main-color,
     'second-menu-color': $third-main-color,

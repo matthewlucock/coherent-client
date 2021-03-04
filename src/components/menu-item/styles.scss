@@ -1,11 +1,9 @@
 @use 'globals' as *;
 
-$base-padding: .4em;
-
 .menu-item {
   display: flex;
   align-items: center;
-  padding: $base-padding $base-padding * 2;
+  padding: .5em .8em;
   cursor: pointer;
   transition-property: background;
   transition-duration: $transition-duration;
@@ -16,5 +14,10 @@ $base-padding: .4em;
 }
 
 .icon {
+  @extend %icon;
   margin-right: .5em;
+
+  &.colored {
+    color: inherit;
+  }
 }

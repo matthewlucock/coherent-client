@@ -7,15 +7,22 @@ import styles from './styles.scss'
 
 type Props = Readonly<{
   className?: string
-  icon?: IconProp
   onClick?: () => void
 }>
 
 export const MenuItem: React.FC<Props> = props => (
   <div className={clsx(styles.menuItem, props.className)} onClick={props.onClick}>
-    {props.icon !== undefined && (
-      <FontAwesomeIcon className={styles.icon} icon={props.icon} />
-    )}
     {props.children}
   </div>
+)
+
+type MenuItemIconProps = Readonly<{
+  icon: IconProp
+  colored?: boolean
+}>
+export const MenuItemIcon: React.FC<MenuItemIconProps> = props => (
+  <FontAwesomeIcon
+    className={clsx(styles.icon, props.colored === true && styles.colored)}
+    icon={props.icon}
+  />
 )

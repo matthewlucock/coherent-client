@@ -80,6 +80,10 @@ $app-bar-padding: .25em;
   height: 100%;
 }
 
+%icon {
+  color: var(--faded-color);
+}
+
 %app-bar-item {
   display: flex;
   align-items: center;
@@ -89,6 +93,7 @@ $app-bar-padding: .25em;
 
 %app-bar-icon-container {
   @extend %app-bar-item;
+  @extend %icon;
   padding: $app-bar-padding;
   cursor: pointer;
 }

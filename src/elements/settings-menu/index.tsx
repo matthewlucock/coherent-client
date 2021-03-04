@@ -12,7 +12,7 @@ import { uiActions } from 'coherent/store/ui'
 import { logout } from 'coherent/logic/auth'
 
 import { Menu } from 'coherent/components/menu'
-import { MenuItem } from 'coherent/components/menu-item'
+import { MenuItem, MenuItemIcon } from 'coherent/components/menu-item'
 import { UserIcon } from 'coherent/components/user-icon'
 
 const OFFSET = { right: 20 }
@@ -40,21 +40,21 @@ export const SettingsMenu: React.FC = () => {
 
       <Menu button={button} offset={OFFSET} visible={visible}>
         <MenuItem
-          icon={darkTheme ? farMoon : fasMoon}
           onClick={(): void => {
             dispatch(uiActions.setDarkTheme(!darkTheme))
           }}
         >
+          <MenuItemIcon icon={darkTheme ? farMoon : fasMoon} />
           Use {darkTheme ? 'light' : 'dark'} theme
         </MenuItem>
 
         <MenuItem
           className={styles.logout}
-          icon={fasSignOutAlt}
           onClick={(): void => {
             logout().catch(console.error)
           }}
         >
+          <MenuItemIcon icon={fasSignOutAlt} colored />
           Log out
         </MenuItem>
       </Menu>

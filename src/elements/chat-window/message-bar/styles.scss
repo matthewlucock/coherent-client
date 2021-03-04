@@ -14,7 +14,7 @@ $container-padding: 1em;
 
 .messageBox {
   flex-grow: 1;
-  padding: .5em;
+  padding: .6em;
   margin-right: 1em;
   background-color: var(--second-main-color);
   border-radius: .5em;
@@ -24,10 +24,11 @@ $container-padding: 1em;
   width: 100%;
 
   &::placeholder {
-    color: var(--second-subtle-color);
+    color: var(--second-faded-color);
   }
 }
 
 .submit {
-  font-size: 2em;
+  @extend %icon;
+  font-size: 1.75em;
 }
