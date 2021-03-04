@@ -4,12 +4,12 @@ $arrow-size: .45em;
 
 .menu {
   font-size: .5em;
-  position: absolute;
-  top: 100%;
-  width: 10em;
-  box-shadow: 0 0 1em hsl(0, 0%, 50%);
+  width: 11em;
+  background-color: var(--menu-color);
+  box-shadow: 0 0 1em var(--menu-shadow-color);
   visibility: hidden;
   opacity: 0;
+  z-index: 2;
   transition-property: visibility, opacity;
   transition-duration: $transition-duration;
 
@@ -25,5 +25,5 @@ $arrow-size: .45em;
   height: 0;
   border-left: $arrow-size solid transparent;
   border-right: $arrow-size solid transparent;
-  border-bottom: $arrow-size solid white;
+  border-bottom: $arrow-size solid var(--menu-color);
 }

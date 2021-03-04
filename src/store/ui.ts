@@ -2,10 +2,12 @@ import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
 type State = Readonly<{
+  darkTheme: boolean
   userMenuVisible: boolean
   selectedChat: string | null
 }>
 const initialState: State = {
+  darkTheme: false,
   userMenuVisible: false,
   selectedChat: null
 }
@@ -15,6 +17,10 @@ const slice = createSlice({
   initialState,
 
   reducers: {
+    setDarkTheme: (state, { payload: darkTheme }: PayloadAction<boolean>) => {
+      state.darkTheme = darkTheme
+    },
+
     setUserMenuVisible: (state, { payload: userMenuShowing }: PayloadAction<boolean>) => {
       state.userMenuVisible = userMenuShowing
     },

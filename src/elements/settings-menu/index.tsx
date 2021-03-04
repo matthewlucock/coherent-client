@@ -1,5 +1,9 @@
 import * as React from 'react'
-import { faSignOutAlt as fasSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import {
+  faMoon as fasMoon,
+  faSignOutAlt as fasSignOutAlt
+} from '@fortawesome/free-solid-svg-icons'
+import { faMoon as farMoon } from '@fortawesome/free-regular-svg-icons'
 
 import styles from './styles.scss'
 
@@ -15,6 +19,7 @@ const OFFSET = { right: 20 }
 
 export const SettingsMenu: React.FC = () => {
   const visible = useSelector(({ ui }) => ui.userMenuVisible)
+  const darkTheme = useSelector(({ ui }) => ui.darkTheme)
 
   const [button, setButton] = React.useState<HTMLDivElement | null>(null)
 
@@ -34,6 +39,15 @@ export const SettingsMenu: React.FC = () => {
       </div>
 
       <Menu button={button} offset={OFFSET} visible={visible}>
+        <MenuItem
+          icon={darkTheme ? farMoon : fasMoon}
+          onClick={(): void => {
+            dispatch(uiActions.setDarkTheme(!darkTheme))
+          }}
+        >
+          Use {darkTheme ? 'light' : 'dark'} theme
+        </MenuItem>
+
         <MenuItem
           className={styles.logout}
           icon={fasSignOutAlt}

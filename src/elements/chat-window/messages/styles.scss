@@ -17,7 +17,7 @@
   height: 100%;
   visibility: visible;
   opacity: 1;
-  background: white;
+  background: var(--main-color);
   transition-property: visibility, opacity;
   transition-duration: $transition-duration;
 

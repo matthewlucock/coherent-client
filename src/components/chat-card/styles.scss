@@ -14,7 +14,7 @@
   padding: .25em;
 
   .selected & {
-    background: hsl(0, 0%, 90%);
+    background-color: var(--second-main-color);
   }
 }
 
