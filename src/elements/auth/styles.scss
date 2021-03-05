@@ -21,7 +21,6 @@ $form-width: 13em;
 }
 
 .submitButton {
-  @extend %button;
   width: $form-width / 2;
 }
 

@@ -1,8 +1,8 @@
 import * as React from 'react'
-import clsx from 'clsx'
 
 import styles from './styles.scss'
 
+import { StylizedButton } from 'coherent/components/stylized-button'
 import { LoadingIndicator } from 'coherent/components/loading-indicator'
 
 type Props = Readonly<{
@@ -12,11 +12,11 @@ type Props = Readonly<{
 }>
 
 export const FormSubmitButton: React.FC<Props> = props => (
-  <button
+  <StylizedButton
     type='submit'
-    className={clsx(styles.submitButton, props.className)}
+    className={props.className}
     disabled={props.disabled || props.pending}
   >
     {props.pending ? <LoadingIndicator className={styles.loadingIndicator} /> : props.children}
-  </button>
+  </StylizedButton>
 )

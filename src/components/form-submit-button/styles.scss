@@ -1,9 +1,5 @@
 @use 'globals' as *;
 
-.submitButton {
-  @extend %button;
-}
-
 .loadingIndicator {
   margin: 0 auto;
 }

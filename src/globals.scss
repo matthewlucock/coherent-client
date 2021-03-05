@@ -40,40 +40,6 @@ $chat-list-width: 25%;
   }
 }
 
-%button {
-  position: relative;
-  height: 2.2em;
-  padding: 0 .5em;
-  border-radius: 2em;
-  overflow: hidden;
-  background-color: rgba(black, .2);
-  text-align: center;
-  color: white;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition-property: background-color, opacity;
-  transition-duration: .15s;
-
-  &:disabled {
-    background-color: rgba(white, .5);
-  }
-
-  &:not(:disabled):hover {
-    background-color: transparent;
-  }
-
-  &::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    background-image: linear-gradient(90deg, hsl(200, 100%, 60%), hsl(270, 100%, 60%));
-    z-index: -1;
-  }
-}
-
 $app-bar-padding: .25em;
 
 %app-bar-item-container {
