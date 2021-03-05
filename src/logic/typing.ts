@@ -1,5 +1,5 @@
 import { getState, dispatch } from 'coherent/store'
-import { chatActions } from 'coherent/store/chats'
+import { chatActions } from 'coherent/store/slices/chats'
 import { socket } from 'coherent/api/socket'
 
 export const selfTyping = (chatId: string): void => {

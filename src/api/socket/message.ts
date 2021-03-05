@@ -1,5 +1,5 @@
 import { dispatch } from 'coherent/store'
-import { chatActions } from 'coherent/store/chats'
+import { chatActions } from 'coherent/store/slices/chats'
 import { participantTyping } from 'coherent/logic/typing'
 
 export type SocketMessage = Readonly<{

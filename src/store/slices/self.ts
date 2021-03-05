@@ -1,8 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 
-import { REQUESTABLE } from './data'
-import type { BaseUser } from './data'
+import { REQUESTABLE } from '../data'
+import type { BaseUser } from '../data'
 
 export type Self = BaseUser
 

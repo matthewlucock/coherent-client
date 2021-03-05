@@ -1,6 +1,6 @@
 import { dispatch, clearStore } from 'coherent/store'
-import { apiActions } from 'coherent/store/api'
-import { selfActions } from 'coherent/store/self'
+import { apiActions } from 'coherent/store/slices/api'
+import { selfActions } from 'coherent/store/slices/self'
 import { apiRequest, ApiError } from 'coherent/api'
 
 type Auth = Readonly<{

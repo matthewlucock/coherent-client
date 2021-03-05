@@ -1,5 +1,5 @@
 import { getState, dispatch } from 'coherent/store'
-import { usersActions } from 'coherent/store/users'
+import { usersActions } from 'coherent/store/slices/users'
 import { apiRequest } from 'coherent/api'
 
 // todo: not fetch already being fetched

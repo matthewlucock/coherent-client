@@ -1,6 +1,6 @@
 import { getState, dispatch } from 'coherent/store'
-import { chatActions } from 'coherent/store/chats'
-import { uiActions } from 'coherent/store/ui'
+import { chatActions } from 'coherent/store/slices/chats'
+import { uiActions } from 'coherent/store/slices/ui'
 import { apiRequest } from 'coherent/api'
 
 export const fetchChat = async (chatId: string): Promise<void> => {

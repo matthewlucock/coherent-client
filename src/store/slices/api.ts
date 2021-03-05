@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { nanoid } from 'nanoid/non-secure'
 
-import { REQUESTABLE } from './data'
+import { REQUESTABLE } from '../data'
 
 type State = Readonly<{
   clientId: string

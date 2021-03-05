@@ -1,7 +1,7 @@
 import { dispatch } from 'coherent/store'
-import { apiActions } from 'coherent/store/api'
-import { usersActions } from 'coherent/store/users'
-import { chatActions } from 'coherent/store/chats'
+import { apiActions } from 'coherent/store/slices/api'
+import { usersActions } from 'coherent/store/slices/users'
+import { chatActions } from 'coherent/store/slices/chats'
 import { apiRequest } from 'coherent/api'
 import { socket } from 'coherent/api/socket'
 

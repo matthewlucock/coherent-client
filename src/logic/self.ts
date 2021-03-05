@@ -1,5 +1,5 @@
 import { dispatch } from 'coherent/store'
-import { selfActions } from 'coherent/store/self'
+import { selfActions } from 'coherent/store/slices/self'
 import { apiRequest, ApiError } from 'coherent/api'
 
 export const fetchSelf = async (): Promise<void> => {

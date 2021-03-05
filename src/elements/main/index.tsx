@@ -3,7 +3,7 @@ import * as React from 'react'
 import styles from './styles.scss'
 
 import { useSelector, dispatch } from 'coherent/store'
-import { uiActions } from 'coherent/store/ui'
+import { uiActions } from 'coherent/store/slices/ui'
 import { clearTypingTimeouts } from 'coherent/logic/typing'
 
 import { AppBar } from 'coherent/elements/app-bar'

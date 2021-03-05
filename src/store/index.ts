@@ -4,11 +4,11 @@ import { useSelector as baseUseSelector } from 'react-redux'
 import type { TypedUseSelectorHook } from 'react-redux'
 import { createLogger } from 'redux-logger'
 
-import { apiReducer } from './api'
-import { selfReducer } from './self'
-import { usersReducer } from './users'
-import { chatsReducer } from './chats'
-import { uiReducer } from './ui'
+import { apiReducer } from './slices/api'
+import { selfReducer } from './slices/self'
+import { usersReducer } from './slices/users'
+import { chatsReducer } from './slices/chats'
+import { uiReducer } from './slices/ui'
 
 const mainReducer = combineReducers({
   api: apiReducer,
@@ -26,6 +26,7 @@ const rootReducer: Reducer<State> = (state, action) => {
     // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     state = {} as State
   }
+
   return mainReducer(state, action)
 }
 

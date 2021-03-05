@@ -4,8 +4,8 @@ import clsx from 'clsx'
 import styles from './styles.scss'
 
 import { useSelector } from 'coherent/store'
-import type { BaseMessage, OfficialMessage } from 'coherent/store/chats'
-import { isMessageOfficial } from 'coherent/store/chats'
+import { isMessageOfficial } from 'coherent/store/slices/chats'
+import type { BaseMessage, OfficialMessage } from 'coherent/store/slices/chats'
 
 import { LoadingIndicator } from 'coherent/components/loading-indicator'
 import { MessageBubble } from 'coherent/components/message-bubble'

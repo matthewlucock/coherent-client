@@ -3,7 +3,7 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 import { nanoid } from 'nanoid/non-secure'
 
 import { simpleRemoveFromArray } from 'coherent/util'
-import { REQUESTABLE } from './data'
+import { REQUESTABLE } from '../data'
 
 export type BaseMessage = Readonly<{
   id: string

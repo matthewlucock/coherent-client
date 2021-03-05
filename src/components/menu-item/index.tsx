@@ -5,12 +5,11 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 import styles from './styles.scss'
 
-type Props = Readonly<{
+type MenuItemProps = Readonly<{
   className?: string
   onClick?: () => void
 }>
-
-export const MenuItem: React.FC<Props> = props => (
+export const MenuItem: React.FC<MenuItemProps> = props => (
   <div className={clsx(styles.menuItem, props.className)} onClick={props.onClick}>
     {props.children}
   </div>
