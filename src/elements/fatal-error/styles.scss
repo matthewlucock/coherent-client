@@ -1,0 +1,25 @@
+@use 'globals' as *;
+
+.container {
+  @extend %pane;
+  font-size: 1.25em;
+}
+
+.errorIcon {
+  @extend %icon;
+  font-size: 5em;
+  margin-bottom: .1em;
+}
+
+.heading {
+  font-size: 3em;
+  margin-bottom: .5em;
+}
+
+.heading, .paragraph {
+  user-select: text;
+}
+
+.reload {
+  margin-top: 1em;
+}

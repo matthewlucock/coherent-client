@@ -1,7 +1,8 @@
 import { CustomError } from 'ts-custom-error'
 
 import { SERVER_DOMAIN } from 'coherent/globals'
-import { getState } from 'coherent/store'
+import { store, getState } from 'coherent/store'
+import { apiActions } from 'coherent/store/slices/api'
 
 export class ApiError extends CustomError {}
 
@@ -50,7 +51,7 @@ export const apiRequest = async (path: string, options?: Options): Promise<any> 
   try {
     response = await fetch(request)
   } catch (error) {
-    // store.dispatch(apiSlice.actions.noConnection())
+    store.dispatch(apiActions.setNoConnection(true))
     throw new ApiError('No connection')
   }
 

@@ -14,6 +14,7 @@ import { fetchSelf } from './logic/self'
 import { init } from './logic/init'
 
 import { Loading } from './elements/loading'
+import { FatalError } from './elements/fatal-error'
 import { Auth } from './elements/auth'
 import { Main } from './elements/main'
 
@@ -51,22 +52,23 @@ export const App: React.FC = () => {
   useTheme()
   const history = useHistory()
 
-  const selfFetched = useSelector(({ self }) => self.fetch.requestState === 'succeeded')
-  const initialized = useSelector(({ api }) => api.init.requestState === 'succeeded')
+  const previousInstance = useSelector(({ api }) => api.previousInstance)
+  const noConnection = useSelector(({ api }) => api.noConnection)
+  const fetchSelfRequest = useSelector(({ self }) => self.fetch)
+  const initRequest = useSelector(({ api }) => api.init)
   const authenticated = useSelector(getAuthenticated)
-  const loaded = useSelector(state => (
-    state.api.previousInstance || (
-      isRequestCompleted(state.self.fetch) &&
-      (!getAuthenticated(state) || isRequestCompleted(state.api.init))
-    )
-  ))
+
+  const loaded = previousInstance || (
+    isRequestCompleted(fetchSelfRequest) && (!authenticated || isRequestCompleted(initRequest))
+  )
+  const failed = fetchSelfRequest.requestState === 'failed' || initRequest.requestState === 'failed'
 
   React.useEffect(() => {
     handlePromiseRejection(fetchSelf())
   }, [])
 
   React.useEffect(() => {
-    if (!selfFetched) return
+    if (fetchSelfRequest.requestState !== 'succeeded') return
 
     if (authenticated) {
       history.push(MAIN_ROUTE)
@@ -74,9 +76,18 @@ export const App: React.FC = () => {
     } else {
       history.push(LOGIN_ROUTE)
     }
-  }, [selfFetched, authenticated])
+  }, [fetchSelfRequest, authenticated])
 
   if (!loaded) return <Loading />
+  if (failed && noConnection) {
+    return (
+      <FatalError
+        heading="Can't connect to server"
+        paragraph='Check that the server is running and try again.'
+      />
+    )
+  }
+
   return (
     <RouterSwitch>
       <UnauthenticatedRoute path={[LOGIN_ROUTE, SIGNUP_ROUTE]}>
@@ -84,7 +95,7 @@ export const App: React.FC = () => {
       </UnauthenticatedRoute>
 
       <AuthenticatedRoute path={MAIN_ROUTE}>
-        {initialized && <Main />}
+        {initRequest.requestState === 'succeeded' && <Main />}
       </AuthenticatedRoute>
     </RouterSwitch>
   )
