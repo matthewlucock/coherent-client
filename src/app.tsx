@@ -5,7 +5,7 @@ import themeStyles from './themes.scss'
 import './main.scss'
 
 import { LOGIN_ROUTE, SIGNUP_ROUTE, MAIN_ROUTE } from './globals'
-import { forceReflowOnElement } from './util'
+import { handlePromiseRejection, forceReflowOnElement } from './util'
 import { AuthenticatedRoute, UnauthenticatedRoute } from './util/routes'
 import { useSelector } from './store'
 import { isRequestCompleted } from './store/data'
@@ -62,7 +62,7 @@ export const App: React.FC = () => {
   ))
 
   React.useEffect(() => {
-    fetchSelf().catch(console.error)
+    handlePromiseRejection(fetchSelf())
   }, [])
 
   React.useEffect(() => {
@@ -70,7 +70,7 @@ export const App: React.FC = () => {
 
     if (authenticated) {
       history.push(MAIN_ROUTE)
-      init().catch(console.error)
+      handlePromiseRejection(init())
     } else {
       history.push(LOGIN_ROUTE)
     }

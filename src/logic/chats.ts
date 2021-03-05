@@ -1,3 +1,4 @@
+import { handlePromiseRejection } from 'coherent/util'
 import { getState, dispatch } from 'coherent/store'
 import { chatActions } from 'coherent/store/slices/chats'
 import { uiActions } from 'coherent/store/slices/ui'
@@ -24,7 +25,7 @@ export const selectChat = (chatId: string): void => {
   dispatch(uiActions.selectChat(chatId))
 
   if (chat.initialFetch.requestState === null || chat.initialFetch.requestState === 'failed') {
-    fetchChat(chatId).catch(console.error)
+    handlePromiseRejection(fetchChat(chatId))
   }
 }
 
@@ -37,7 +38,7 @@ export const queueMessage = ({ chatId, content }: QueueMessageArgs): void => {
   const chat = state.chats[chatId]
 
   dispatch(chatActions.queueMessage({ chatId, content }))
-  if (!chat.sending) sendMessages(chatId).catch(console.error)
+  if (!chat.sending) handlePromiseRejection(sendMessages(chatId))
 }
 
 export const sendMessages = async (chatId: string): Promise<void> => {
@@ -63,6 +64,6 @@ export const sendMessages = async (chatId: string): Promise<void> => {
   const newChat = newState.chats[chatId]
 
   if (newChat.queue.length > 0) {
-    sendMessages(chatId).catch(console.error)
+    handlePromiseRejection(sendMessages(chatId))
   }
 }

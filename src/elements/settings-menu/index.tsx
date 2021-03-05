@@ -7,6 +7,7 @@ import { faMoon as farMoon } from '@fortawesome/free-regular-svg-icons'
 
 import styles from './styles.scss'
 
+import { handlePromiseRejection } from 'coherent/util'
 import { useSelector, dispatch } from 'coherent/store'
 import { uiActions } from 'coherent/store/slices/ui'
 import { logout } from 'coherent/logic/auth'
@@ -51,7 +52,7 @@ export const SettingsMenu: React.FC = () => {
         <MenuItem
           className={styles.logout}
           onClick={(): void => {
-            logout().catch(console.error)
+            handlePromiseRejection(logout())
           }}
         >
           <MenuItemIcon icon={fasSignOutAlt} colored />

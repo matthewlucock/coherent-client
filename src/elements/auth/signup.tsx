@@ -6,6 +6,7 @@ import styles from './styles.scss'
 
 import { LOGIN_ROUTE } from 'coherent/globals'
 import type { InputState } from 'coherent/globals'
+import { handlePromiseRejection } from 'coherent/util'
 import { useSelector } from 'coherent/store'
 import { signup } from 'coherent/logic/auth'
 import { usernameInputValidator } from 'coherent/logic/input-validation'
@@ -69,7 +70,7 @@ export const Signup: React.FC = () => {
 
     if (errored) return
 
-    signup({ username, password }).catch(console.error)
+    handlePromiseRejection(signup({ username, password }))
   }
 
   return (
