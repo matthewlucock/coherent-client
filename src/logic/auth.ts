@@ -38,5 +38,5 @@ export const logout = async (): Promise<void> => {
   await apiRequest('auth/logout', { method: 'POST' })
 
   dispatch(clearStore())
-  dispatch(apiActions.baseInitSucceeded())
+  dispatch(apiActions.previousInstance())
 }

@@ -6,6 +6,9 @@ export const REQUESTABLE: Requestable = {
   requestState: null,
   errorMessage: ''
 }
+export const isRequestCompleted = (requestable: Requestable): boolean => (
+  requestable.requestState === 'succeeded' || requestable.requestState === 'failed'
+)
 
 export type BaseUser = Readonly<{
   id: string

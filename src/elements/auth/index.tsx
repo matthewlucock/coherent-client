@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Switch, Route } from 'react-router-dom'
+import { Switch as RouterSwitch, Route } from 'react-router-dom'
 
 import styles from './styles.scss'
 
@@ -13,9 +13,9 @@ export const Auth: React.FC = () => (
   <div className={styles.container}>
     <Logo className={styles.heading} />
 
-    <Switch>
+    <RouterSwitch>
       <Route path={LOGIN_ROUTE} component={Login} />
       <Route path={SIGNUP_ROUTE} component={Signup} />
-    </Switch>
+    </RouterSwitch>
   </div>
 )

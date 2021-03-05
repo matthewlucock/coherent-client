@@ -5,14 +5,14 @@ import { REQUESTABLE } from '../data'
 
 type State = Readonly<{
   clientId: string
-  baseInit: typeof REQUESTABLE
-  mainInit: typeof REQUESTABLE
+  previousInstance: boolean
+  init: typeof REQUESTABLE
 }>
 
 const initialState: State = {
   clientId: nanoid(),
-  baseInit: REQUESTABLE,
-  mainInit: REQUESTABLE
+  previousInstance: false,
+  init: REQUESTABLE
 }
 
 const slice = createSlice({
@@ -20,41 +20,23 @@ const slice = createSlice({
   initialState,
 
   reducers: {
-    baseInitPending: state => {
-      state.baseInit.requestState = 'pending'
+    previousInstance: state => {
+      state.previousInstance = true
     },
 
-    baseInitSucceeded: state => {
-      state.baseInit.requestState = 'succeeded'
+    initPending: state => {
+      state.init.requestState = 'pending'
     },
 
-    baseInitFailed: state => {
-      state.baseInit.requestState = 'failed'
+    initSucceeded: state => {
+      state.init.requestState = 'succeeded'
     },
 
-    mainInitPending: state => {
-      state.mainInit.requestState = 'pending'
-    },
-
-    mainInitSucceeded: state => {
-      state.mainInit.requestState = 'succeeded'
-    },
-
-    mainInitFailed: state => {
-      state.mainInit.requestState = 'failed'
+    initFailed: state => {
+      state.init.requestState = 'failed'
     }
   }
 })
 
 export const apiReducer = slice.reducer
 export const apiActions = slice.actions
-
-/**
- * Selectors
- */
-
-type RootState = Readonly<{ api: State }>
-
-export const getInitPending = ({ api }: RootState): boolean => (
-  api.baseInit.requestState === 'pending' || api.mainInit.requestState === 'pending'
-)

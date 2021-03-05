@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Switch, useHistory } from 'react-router'
+import { Switch as RouterSwitch, useHistory } from 'react-router'
 
 import themeStyles from './themes.scss'
 import './main.scss'
@@ -8,9 +8,10 @@ import { LOGIN_ROUTE, SIGNUP_ROUTE, MAIN_ROUTE } from './globals'
 import { forceReflowOnElement } from './util'
 import { AuthenticatedRoute, UnauthenticatedRoute } from './util/routes'
 import { useSelector } from './store'
-import { getInitPending } from './store/slices/api'
+import { isRequestCompleted } from './store/data'
 import { getAuthenticated } from './store/slices/self'
-import { baseInit, mainInit } from './logic/init'
+import { fetchSelf } from './logic/self'
+import { init } from './logic/init'
 
 import { Loading } from './elements/loading'
 import { Auth } from './elements/auth'
@@ -50,40 +51,41 @@ export const App: React.FC = () => {
   useTheme()
   const history = useHistory()
 
-  const initPending = useSelector(getInitPending)
-  const baseInitialized = useSelector(({ api }) => api.baseInit.requestState === 'succeeded')
-  const mainInitialized = useSelector(({ api }) => api.mainInit.requestState === 'succeeded')
+  const selfFetched = useSelector(({ self }) => self.fetch.requestState === 'succeeded')
+  const initialized = useSelector(({ api }) => api.init.requestState === 'succeeded')
   const authenticated = useSelector(getAuthenticated)
+  const loaded = useSelector(state => (
+    state.api.previousInstance || (
+      isRequestCompleted(state.self.fetch) &&
+      (!getAuthenticated(state) || isRequestCompleted(state.api.init))
+    )
+  ))
 
   React.useEffect(() => {
-    baseInit().catch(console.error)
+    fetchSelf().catch(console.error)
   }, [])
 
   React.useEffect(() => {
-    if (!baseInitialized) return
+    if (!selfFetched) return
 
     if (authenticated) {
       history.push(MAIN_ROUTE)
-      mainInit().catch(console.error)
+      init().catch(console.error)
     } else {
       history.push(LOGIN_ROUTE)
     }
-  }, [baseInitialized, authenticated])
+  }, [selfFetched, authenticated])
 
+  if (!loaded) return <Loading />
   return (
-    <>
-      {initPending && <Loading />}
-      {baseInitialized && (
-        <Switch>
-          <UnauthenticatedRoute path={[LOGIN_ROUTE, SIGNUP_ROUTE]}>
-            <Auth />
-          </UnauthenticatedRoute>
+    <RouterSwitch>
+      <UnauthenticatedRoute path={[LOGIN_ROUTE, SIGNUP_ROUTE]}>
+        <Auth />
+      </UnauthenticatedRoute>
 
-          <AuthenticatedRoute path={MAIN_ROUTE}>
-            {mainInitialized && <Main />}
-          </AuthenticatedRoute>
-        </Switch>
-      )}
-    </>
+      <AuthenticatedRoute path={MAIN_ROUTE}>
+        {initialized && <Main />}
+      </AuthenticatedRoute>
+    </RouterSwitch>
   )
 }
