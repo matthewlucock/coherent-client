@@ -4,7 +4,7 @@ import styles from './styles.scss'
 
 import { SettingsMenu } from 'coherent/elements/settings-menu'
 import { Friends } from 'coherent/elements/friends'
-import { Title } from './title'
+import { PaneTitle } from 'coherent/elements/pane-title'
 import { Logo } from 'coherent/components/logo'
 
 export const AppBar: React.FC = () => (
@@ -16,6 +16,6 @@ export const AppBar: React.FC = () => (
       <SettingsMenu />
     </div>
 
-    <Title />
+    <PaneTitle />
   </div>
 )

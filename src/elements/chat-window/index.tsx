@@ -4,8 +4,8 @@ import styles from './styles.scss'
 
 import { useSelector } from 'coherent/store'
 
-import { Messages } from './messages'
-import { MessageBar } from './message-bar'
+import { Messages } from 'coherent/elements/messages'
+import { MessageBar } from 'coherent/elements/message-bar'
 
 export const ChatWindow: React.FC = () => {
   const chatId = useSelector(({ ui }) => ui.selectedChat)

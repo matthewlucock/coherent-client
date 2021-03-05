@@ -6,7 +6,7 @@ import { useSelector } from 'coherent/store'
 
 import { UserIcon } from 'coherent/components/user-icon'
 
-export const Title: React.FC = () => {
+export const PaneTitle: React.FC = () => {
   const chatParticipant: string | null = useSelector(state => {
     const { selectedChat } = state.ui
     if (selectedChat === null) return null
