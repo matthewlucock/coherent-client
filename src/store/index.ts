@@ -19,7 +19,7 @@ const mainReducer = combineReducers({
   chats: chatsReducer,
   ui: uiReducer
 })
-type State = ReturnType<typeof mainReducer>
+export type State = ReturnType<typeof mainReducer>
 
 export const clearStore = createAction('clearStore')
 

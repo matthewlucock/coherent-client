@@ -39,11 +39,3 @@ const slice = createSlice({
 
 export const selfReducer = slice.reducer
 export const selfActions = slice.actions
-
-/**
- * Selectors
- */
-
-type RootState = Readonly<{ self: State }>
-
-export const getAuthenticated = ({ self }: RootState): boolean => self.data.id !== ''

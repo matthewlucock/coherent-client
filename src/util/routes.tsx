@@ -2,9 +2,9 @@ import * as React from 'react'
 import { Route, Redirect } from 'react-router-dom'
 import type { RouteProps } from 'react-router-dom'
 
-import { LOGIN_ROUTE, MAIN_ROUTE } from 'coherent/globals'
+import { LOGIN_ROUTE, CORE_ROUTE } from 'coherent/globals'
 import { useSelector } from 'coherent/store'
-import { getAuthenticated } from 'coherent/store/slices/self'
+import { getAuthenticated } from 'coherent/store/selectors'
 
 export const AuthenticatedRoute: React.FC<RouteProps> = props => {
   const { children, ...rest } = props
@@ -22,6 +22,6 @@ export const UnauthenticatedRoute: React.FC<RouteProps> = props => {
 
   return <Route {...rest} render={() => {
     if (!authenticated) return children
-    return <Redirect to={MAIN_ROUTE} />
+    return <Redirect to={CORE_ROUTE} />
   }} />
 }

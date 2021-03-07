@@ -25,3 +25,10 @@ export const FatalError: React.FC<Props> = props => (
     </StylizedButton>
   </div>
 )
+
+export const FatalNoConnection: React.FC = () => (
+  <FatalError
+    heading="Can't connect to server"
+    paragraph='Check that the server is running and try again.'
+  />
+)
