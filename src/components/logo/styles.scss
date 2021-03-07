@@ -1,8 +1,11 @@
 @use 'globals' as *;
 
 .logo {
-  font-size: 3em;
   color: var(--faded-color);
   font-weight: bold;
   cursor: default;
+}
+
+.large {
+  font-size: 3em;
 }

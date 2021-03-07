@@ -11,7 +11,7 @@ import { Logo } from 'coherent/components/logo'
 
 export const Auth: React.FC = () => (
   <div className={styles.container}>
-    <Logo className={styles.heading} />
+    <Logo large className={styles.heading} />
 
     <RouterSwitch>
       <Route path={LOGIN_ROUTE} component={Login} />

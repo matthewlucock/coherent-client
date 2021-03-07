@@ -20,7 +20,7 @@
     'text-color': $text-color,
     'second-main-color': $second-main-color,
     'third-main-color': $third-main-color,
-    'faded-color': color.adjust($text-color, $lightness: 30%),
+    'faded-color': color.adjust($text-color, $lightness: 25%),
     'second-faded-color': color.adjust($second-main-color, $lightness: -40%),
 
     'menu-color': $main-color,
@@ -44,7 +44,7 @@
     'text-color': $text-color,
     'second-main-color': $second-main-color,
     'third-main-color': $third-main-color,
-    'faded-color': color.adjust($text-color, $lightness: -25%),
+    'faded-color': color.adjust($text-color, $lightness: -20%),
     'second-faded-color': color.adjust($second-main-color, $lightness: 40%),
 
     'menu-color': $second-main-color,
