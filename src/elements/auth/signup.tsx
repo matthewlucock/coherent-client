@@ -8,7 +8,7 @@ import { LOGIN_ROUTE } from 'coherent/globals'
 import type { InputState } from 'coherent/globals'
 import { handlePromiseRejection } from 'coherent/util'
 import { useSelector } from 'coherent/store'
-import { signup } from 'coherent/logic/auth'
+import { register } from 'coherent/logic/auth'
 import { usernameInputValidator } from 'coherent/logic/input-validation'
 
 import { FormInput } from 'coherent/components/form-input'
@@ -16,8 +16,8 @@ import { FormSubmitButton } from 'coherent/components/form-submit-button'
 import { FormErrorMessage } from 'coherent/components/form-error-message'
 
 export const Signup: React.FC = () => {
-  const requestState = useSelector(({ self }) => self.signup.requestState)
-  const errorMessage = useSelector(({ self }) => self.signup.errorMessage)
+  const requestState = useSelector(({ auth }) => auth.register.requestState)
+  const errorMessage = useSelector(({ auth }) => auth.register.errorMessage)
 
   const [username, setUsername] = React.useState('')
   const [usernameState, setUsernameState] = React.useState<InputState>(null)
@@ -70,7 +70,7 @@ export const Signup: React.FC = () => {
 
     if (errored) return
 
-    handlePromiseRejection(signup({ username, password }))
+    handlePromiseRejection(register({ username, password }))
   }
 
   return (

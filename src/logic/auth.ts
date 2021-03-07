@@ -1,7 +1,9 @@
+import { handlePromiseRejection } from 'coherent/util'
 import { dispatch, clearStore } from 'coherent/store'
 import { apiActions } from 'coherent/store/slices/api'
-import { selfActions } from 'coherent/store/slices/self'
+import { authActions } from 'coherent/store/slices/auth'
 import { apiRequest, ApiError } from 'coherent/api'
+import { fetchSelf } from 'coherent/logic/self'
 
 type Auth = Readonly<{
   username: string
@@ -9,31 +11,33 @@ type Auth = Readonly<{
 }>
 
 export const login = async (auth: Auth): Promise<void> => {
-  dispatch(selfActions.loginPending())
+  dispatch(authActions.loginPending())
 
   try {
-    const user = await apiRequest('auth/login', { method: 'POST', data: auth })
-    dispatch(selfActions.loginSucceeded(user))
+    await apiRequest('auth/login', { method: 'POST', data: auth })
+    dispatch(authActions.loginSucceeded())
+    handlePromiseRejection(fetchSelf())
   } catch (error) {
     const errorMessage = error instanceof ApiError ? error.message : 'Could not log in'
-    dispatch(selfActions.loginFailed(errorMessage))
+    dispatch(authActions.loginFailed(errorMessage))
   }
 }
 
-export const signup = async (auth: Auth): Promise<void> => {
-  dispatch(selfActions.signupPending())
+export const register = async (auth: Auth): Promise<void> => {
+  dispatch(authActions.registerPending())
 
   try {
-    const user = await apiRequest('auth/signup', { method: 'POST', data: auth })
-    dispatch(selfActions.signupSucceeded(user))
+    await apiRequest('auth/register', { method: 'POST', data: auth })
+    dispatch(authActions.registerSucceeded())
+    handlePromiseRejection(fetchSelf())
   } catch (error) {
     const errorMessage = error instanceof ApiError ? error.message : 'Could not sign up'
-    dispatch(selfActions.signupFailed(errorMessage))
+    dispatch(authActions.registerFailed(errorMessage))
   }
 }
 
 export const logout = async (): Promise<void> => {
-  dispatch(selfActions.logoutPending())
+  dispatch(authActions.logoutPending())
 
   await apiRequest('auth/logout', { method: 'POST' })
 

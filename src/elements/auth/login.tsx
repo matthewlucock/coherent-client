@@ -16,8 +16,8 @@ import { FormSubmitButton } from 'coherent/components/form-submit-button'
 import { FormErrorMessage } from 'coherent/components/form-error-message'
 
 export const Login: React.FC = () => {
-  const requestState = useSelector(({ self }) => self.login.requestState)
-  const errorMessage = useSelector(({ self }) => self.login.errorMessage)
+  const requestState = useSelector(({ auth }) => auth.login.requestState)
+  const errorMessage = useSelector(({ auth }) => auth.login.errorMessage)
 
   const [username, setUsername] = React.useState('')
   const [usernameState, setUsernameState] = React.useState<InputState>(null)

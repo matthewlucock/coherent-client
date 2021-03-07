@@ -12,5 +12,6 @@ export const isRequestCompleted = (requestable: Requestable): boolean => (
 
 export type BaseUser = Readonly<{
   id: string
-  displayUsername: string
+  displayName: string
 }>
+export type Self = BaseUser

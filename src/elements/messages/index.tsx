@@ -32,7 +32,7 @@ type Props = Readonly<{
 }>
 
 export const Messages: React.FC<Props> = props => {
-  const selfId = useSelector(({ self }) => self.data!.id)
+  const selfId = useSelector(({ self }) => self.data.id)
   const initialFetchSucceeded = useSelector(({ chats }) => (
     chats[props.chatId].initialFetch.requestState === 'succeeded'
   ))

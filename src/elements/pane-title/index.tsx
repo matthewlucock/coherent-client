@@ -12,7 +12,7 @@ export const PaneTitle: React.FC = () => {
     if (selectedChat === null) return null
 
     const user = state.chats[selectedChat].participantIds[0]
-    return state.users[user].displayUsername
+    return state.users[user].displayName
   })
 
   return (

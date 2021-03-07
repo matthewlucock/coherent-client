@@ -18,7 +18,7 @@ export const ChatList: React.FC = () => {
         return (
           <ChatCard
             key={id}
-            username={users[chat.participantIds[0]].displayUsername}
+            username={users[chat.participantIds[0]].displayName}
             message='Lorem ipsum dolor sit amet'
             selected={id === selectedChat}
             select={() => selectChat(id)}
