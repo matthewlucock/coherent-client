@@ -11,8 +11,8 @@ import { useSelector } from 'coherent/store'
 import { login } from 'coherent/logic/auth'
 import { usernameInputValidator } from 'coherent/logic/input-validation'
 
+import { StylizedButton } from 'coherent/components/stylized-button'
 import { FormInput } from 'coherent/components/form-input'
-import { FormSubmitButton } from 'coherent/components/form-submit-button'
 import { FormErrorMessage } from 'coherent/components/form-error-message'
 
 export const Login: React.FC = () => {
@@ -79,13 +79,9 @@ export const Login: React.FC = () => {
           />
         </div>
 
-        <FormSubmitButton
-          className={styles.submitButton}
-          pending={requestState === 'pending'}
-          disabled={errored}
-        >
-          log in
-        </FormSubmitButton>
+        <StylizedButton type='submit' pending={requestState === 'pending'} disabled={errored}>
+          Sign In
+        </StylizedButton>
       </form>
 
       <FormErrorMessage errored={requestState === 'failed'}>{errorMessage}</FormErrorMessage>

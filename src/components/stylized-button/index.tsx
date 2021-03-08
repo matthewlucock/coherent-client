@@ -3,9 +3,26 @@ import clsx from 'clsx'
 
 import styles from './styles.scss'
 
-type Props = Readonly<JSX.IntrinsicElements['button']>
+import { LoadingIndicator } from 'coherent/components/loading-indicator'
 
-export const StylizedButton: React.FC<Props> = props => {
-  const { className, ...rest } = props
-  return <button className={clsx(styles.button, props.className)} {...rest} />
-}
+type Props = Readonly<{
+  className?: string
+  type?: JSX.IntrinsicElements['button']['type']
+  pending?: boolean
+  disabled?: boolean
+  onClick?: () => void
+}>
+
+export const StylizedButton: React.FC<Props> = props => (
+  <button
+    className={clsx(styles.button, props.className)}
+    type={props.type}
+    disabled={props.pending === true || props.disabled === true}
+    onClick={props.onClick}
+  >
+    {props.pending === true
+      ? <LoadingIndicator className={styles.loadingIndicator} />
+      : props.children
+    }
+  </button>
+)

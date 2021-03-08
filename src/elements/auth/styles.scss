@@ -1,7 +1,5 @@
 @use 'globals' as *;
 
-$form-width: 13em;
-
 .container {
   @extend %pane;
 }
@@ -18,10 +16,6 @@ $form-width: 13em;
 
 .inputsContainer {
   margin-bottom: 1.25em;
-}
-
-.submitButton {
-  width: $form-width / 2;
 }
 
 .toggleLink {

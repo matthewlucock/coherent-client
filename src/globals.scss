@@ -3,6 +3,7 @@ $transition-duration: .25s;
 $unfocused-color: hsl(0, 0%, 60%);
 $error-color: hsl(0, 100%, 40%);
 $chat-list-width: 25%;
+$form-width: 13em;
 
 %column {
   display: flex;

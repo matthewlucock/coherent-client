@@ -2,11 +2,12 @@
 
 .button {
   position: relative;
+  width: $form-width / 2;
   height: 2.2em;
   padding: 0 1em;
   border-radius: 2em;
   overflow: hidden;
-  background-color: rgba(black, .2);
+  background-color: hsla(0, 0%, 0%, .2);
   text-align: center;
   color: white;
   text-transform: uppercase;
@@ -15,7 +16,7 @@
   transition-duration: .15s;
 
   &:disabled {
-    background-color: rgba(white, .5);
+    background-color: hsla(0, 0%, 100%, .5);
   }
 
   &:not(:disabled):hover {
@@ -32,4 +33,8 @@
     background-image: linear-gradient(90deg, hsl(200, 100%, 60%), hsl(270, 100%, 60%));
     z-index: -1;
   }
+}
+
+.loadingIndicator {
+  margin: 0 auto;
 }
