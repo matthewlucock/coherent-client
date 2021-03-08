@@ -11,9 +11,8 @@ import { useSelector } from 'coherent/store'
 import { register } from 'coherent/logic/auth'
 import { usernameInputValidator } from 'coherent/logic/input-validation'
 
-import { StylizedButton } from 'coherent/components/stylized-button'
+import { Form } from 'coherent/components/form'
 import { FormInput } from 'coherent/components/form-input'
-import { FormErrorMessage } from 'coherent/components/form-error-message'
 
 export const Signup: React.FC = () => {
   const requestState = useSelector(({ auth }) => auth.register.requestState)
@@ -42,10 +41,7 @@ export const Signup: React.FC = () => {
     state => state === 'error'
   )
 
-  const onSubmit: React.FormEventHandler = event => {
-    event.preventDefault()
-    if (errored) return
-
+  const onSubmit = (): void => {
     if (username.length === 0) {
       setUsernameState('error')
       setUsernameMessage('Username required')
@@ -69,58 +65,56 @@ export const Signup: React.FC = () => {
     }
 
     if (errored) return
-
     handlePromiseRejection(register({ username, password }))
   }
 
   return (
     <>
-      <form className={styles.form} onSubmit={onSubmit}>
-        <div className={styles.inputsContainer}>
-          <FormInput
-            value={username}
-            setValue={setUsername}
-            label='Username'
-            icon={fasUserCircle}
-            state={usernameState}
-            setState={setUsernameState}
-            message={usernameMessage}
-            setMessage={setUsernameMessage}
-            inputValidator={usernameInputValidator}
-          />
+      <Form
+        buttonLabel='Sign Up'
+        onSubmit={onSubmit}
+        pending={requestState === 'pending'}
+        errored={errored}
+        errorMessage={errorMessage}
+      >
+        <FormInput
+          value={username}
+          setValue={setUsername}
+          label='Username'
+          icon={fasUserCircle}
+          state={usernameState}
+          setState={setUsernameState}
+          message={usernameMessage}
+          setMessage={setUsernameMessage}
+          inputValidator={usernameInputValidator}
+        />
 
-          <FormInput
-            type='password'
-            value={password}
-            setValue={setPassword}
-            label='Password'
-            icon={fasLock}
-            state={passwordState}
-            setState={setPasswordState}
-            message={passwordMessage}
-            setMessage={setPasswordMessage}
-            inputValidator={usernameInputValidator}
-          />
+        <FormInput
+          type='password'
+          value={password}
+          setValue={setPassword}
+          label='Password'
+          icon={fasLock}
+          state={passwordState}
+          setState={setPasswordState}
+          message={passwordMessage}
+          setMessage={setPasswordMessage}
+          inputValidator={usernameInputValidator}
+        />
 
-          <FormInput
-            type='password'
-            value={confirmPassword}
-            setValue={setConfirmPassword}
-            label='Confirm password'
-            icon={fasLock}
-            state={confirmPasswordState}
-            setState={setConfirmPasswordState}
-            message={confirmPasswordMessage}
-            setMessage={setConfirmPasswordMessage}
-          />
-        </div>
+        <FormInput
+          type='password'
+          value={confirmPassword}
+          setValue={setConfirmPassword}
+          label='Confirm password'
+          icon={fasLock}
+          state={confirmPasswordState}
+          setState={setConfirmPasswordState}
+          message={confirmPasswordMessage}
+          setMessage={setConfirmPasswordMessage}
+        />
+      </Form>
 
-        <StylizedButton type='submit' pending={requestState === 'pending'} disabled={errored}>
-          Sign Up
-        </StylizedButton>
-      </form>
-
-      <FormErrorMessage errored={requestState === 'failed'}>{errorMessage}</FormErrorMessage>
       <Link className={styles.toggleLink} to={LOGIN_ROUTE}>Already signed up?</Link>
     </>
   )

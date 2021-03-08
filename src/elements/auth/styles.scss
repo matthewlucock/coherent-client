@@ -8,16 +8,6 @@
   margin-bottom: .25em;
 }
 
-.form {
-  @extend %column;
-  width: $form-width;
-  margin-bottom: .5em;
-}
-
-.inputsContainer {
-  margin-bottom: 1.25em;
-}
-
 .toggleLink {
   @extend %link;
   font-size: .75em;

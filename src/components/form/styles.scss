@@ -1,5 +1,19 @@
 @use 'globals' as *;
 
+.container {
+  @extend %column;
+}
+
+.form {
+  @extend %column;
+  width: $form-width;
+  margin-bottom: .5em;
+}
+
+.inputsContainer {
+  margin-bottom: 1.25em;
+}
+
 .errorMessage {
   font-size: .65em;
   display: flex;
