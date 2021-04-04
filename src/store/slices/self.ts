@@ -7,13 +7,15 @@ import type { Self } from '../data'
 type State = Readonly<{
   data: Self
   fetch: typeof REQUESTABLE
+  onboardingDisplayName: typeof REQUESTABLE
 }>
 const initialState: State = {
   data: {
     id: '',
     displayName: ''
   },
-  fetch: REQUESTABLE
+  fetch: REQUESTABLE,
+  onboardingDisplayName: REQUESTABLE
 }
 
 const slice = createSlice({
@@ -33,6 +35,20 @@ const slice = createSlice({
     fetchFailed: (state, { payload }: PayloadAction<string>) => {
       state.fetch.requestState = 'failed'
       state.fetch.errorMessage = payload
+    },
+
+    onboardingDisplayNamePending: state => {
+      state.onboardingDisplayName.requestState = 'pending'
+    },
+
+    onboardingDisplayNameSucceeded: (state, { payload }: PayloadAction<string>) => {
+      state.onboardingDisplayName.requestState = 'succeeded'
+      state.data.displayName = payload
+    },
+
+    onboardingDisplayNameFailed: (state, { payload }: PayloadAction<string>) => {
+      state.onboardingDisplayName.requestState = 'failed'
+      state.onboardingDisplayName.errorMessage = payload
     }
   }
 })

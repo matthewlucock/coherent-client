@@ -13,3 +13,15 @@ export const fetchSelf = async (): Promise<void> => {
     dispatch(selfActions.fetchFailed(errorMessage))
   }
 }
+
+export const onboardingDisplayName = async (displayName: string): Promise<void> => {
+  dispatch(selfActions.onboardingDisplayNamePending())
+
+  try {
+    await apiRequest('self/display-name', { method: 'POST', data: { displayName } })
+    dispatch(selfActions.onboardingDisplayNameSucceeded(displayName))
+  } catch (error) {
+    const errorMessage = error instanceof ApiError ? error.message : 'Could not set display name'
+    dispatch(selfActions.onboardingDisplayNameFailed(errorMessage))
+  }
+}

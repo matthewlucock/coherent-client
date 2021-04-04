@@ -13,7 +13,7 @@ type Props = Readonly<{
   value: string
   setValue: (value: string) => void
   label: string
-  icon: IconProp
+  icon?: IconProp
   state: InputState
   setState: (state: InputState) => void
   message: string
@@ -88,7 +88,9 @@ export const FormInput: React.FC<Props> = props => {
       <div className={labelClassName}>{label}</div>
 
       <div className={styles.inputWrapper}>
-        <FontAwesomeIcon className={styles.icon} icon={props.icon} />
+        {props.icon !== undefined && (
+          <FontAwesomeIcon className={styles.icon} icon={props.icon} />
+        )}
 
         <input
           className={styles.baseInput}
