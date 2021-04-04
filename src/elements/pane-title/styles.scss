@@ -1,25 +1,25 @@
 @use 'globals' as *;
 
 .container {
-  display: flex;
   position: absolute;
-  left: 0;
   right: 0;
+  left: 0;
+  display: flex;
   height: 100%;
   margin-left: $chat-list-width;
   pointer-events: none;
 }
 
 .title {
-  font-size: .8em;
-  flex-grow: 1;
   display: flex;
-  justify-content: center;
+  flex-grow: 1;
   align-items: center;
+  justify-content: center;
   padding: $app-bar-padding 0;
+  font-size: 0.8em;
 }
 
-.chatIcon {
+.chat-icon {
+  margin-right: 0.5em;
   font-size: 1.25em;
-  margin-right: .5em;
 }

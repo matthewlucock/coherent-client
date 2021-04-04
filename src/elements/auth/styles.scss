@@ -5,11 +5,11 @@
 }
 
 .heading {
-  margin-bottom: .25em;
+  margin-bottom: 0.25em;
 }
 
-.toggleLink {
+.toggle-link {
   @extend %link;
-  font-size: .75em;
   width: max-content;
+  font-size: 0.75em;
 }

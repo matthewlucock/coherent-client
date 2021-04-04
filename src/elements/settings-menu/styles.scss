@@ -2,9 +2,9 @@
 
 .container {
   @extend %app-bar-item-container;
+  position: relative;
   display: flex;
   justify-content: center;
-  position: relative;
 }
 
 .icon-container {

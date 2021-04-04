@@ -1,7 +1,7 @@
 @use 'globals' as *;
 
 $dot-size: 1em;
-$dot-margin: .25em;
+$dot-margin: 0.25em;
 $width: 3 * $dot-size + 2 * $dot-margin;
 
 @keyframes loading {
@@ -14,21 +14,21 @@ $width: 3 * $dot-size + 2 * $dot-margin;
   }
 }
 
-.typingIndicator {
+.typing-indicator {
   display: flex;
   width: $width;
   margin: 0 auto;
 
   &::before {
-    content: '';
     position: relative;
     width: $dot-size;
     height: $dot-size;
-    border-radius: 100%;
+    content: '';
     background: currentColor;
+    border-radius: 100%;
     animation-name: loading;
+    animation-duration: 1.5s;
     animation-timing-function: steps(3, jump-none);
     animation-iteration-count: infinite;
-    animation-duration: 1.5s;
   }
 }

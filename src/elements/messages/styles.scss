@@ -1,25 +1,25 @@
 @use 'globals' as *;
 
 .container {
-  flex-grow: 1;
-  display: flex;
   position: relative;
+  display: flex;
+  flex-grow: 1;
 }
 
-.initialFetch {
-  font-size: 2.5em;
-  flex-grow: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.initial-fetch {
   position: absolute;
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
   width: 100%;
   height: 100%;
+  font-size: 2.5em;
   visibility: visible;
-  opacity: 1;
   background: var(--main-color);
-  transition-property: visibility, opacity;
+  opacity: 1;
   transition-duration: $transition-duration;
+  transition-property: visibility, opacity;
 
   &.succeeded {
     visibility: hidden;
@@ -28,7 +28,7 @@
 }
 
 .messages {
-  flex-grow: 1;
   display: flex;
   flex-direction: column-reverse;
+  flex-grow: 1;
 }

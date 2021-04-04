@@ -4,20 +4,22 @@ $focused-color: hsl(0, 0%, 20%);
 $complete-color: hsl(100, 100%, 30%);
 
 .container {
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
 }
 
 .label {
-  font-size: .7em;
-  padding-left: .1em;
-  opacity: 0;
+  padding-left: 0.1em;
+  font-size: 0.7em;
   cursor: default;
-  transition-property: opacity;
+  opacity: 0;
   transition-duration: $transition-duration;
+  transition-property: opacity;
 
   // Separate color and opacity into different levels
 
-  &.nonEmpty, .complete &, .error & {
+  &.non-empty,
+  .complete &,
+  .error & {
     opacity: 1;
   }
 
@@ -30,32 +32,34 @@ $complete-color: hsl(100, 100%, 30%);
   }
 }
 
-.inputWrapper {
+.input-wrapper {
   display: flex;
   align-items: center;
-  padding: .25em 0;
-  border-bottom: .075em solid $unfocused-color;
+  padding: 0.25em 0;
   cursor: text;
-  transition-property: border-color;
+  border-bottom: 0.075em solid $unfocused-color;
   transition-duration: $transition-duration;
+  transition-property: border-color;
 
   .focused & {
     border-color: $focused-color;
   }
 }
 
-.baseInput {
+.base-input {
   width: 100%;
 }
 
 .icon {
   width: 1em !important;
-  margin-right: .5em;
+  margin-right: 0.5em;
   color: $unfocused-color;
-  transition-property: color;
   transition-duration: $transition-duration;
+  transition-property: color;
 
-  .focused &, .complete &, .error & {
+  .focused &,
+  .complete &,
+  .error & {
     color: $focused-color;
   }
 

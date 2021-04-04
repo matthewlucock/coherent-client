@@ -8,19 +8,19 @@ $container-padding: 1em;
 }
 
 .form {
-  flex-grow: 1;
   display: flex;
+  flex-grow: 1;
 }
 
-.messageBox {
+.message-box {
   flex-grow: 1;
-  padding: .6em;
+  padding: 0.6em;
   margin-right: 1em;
   background-color: var(--second-main-color);
-  border-radius: .5em;
+  border-radius: 0.5em;
 }
 
-.messageInput {
+.message-input {
   width: 100%;
 
   &::placeholder {

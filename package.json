@@ -1,6 +1,8 @@
 {
   "scripts": {
-    "lint": "eslint .",
+    "lint:scripts": "eslint .",
+    "lint:styles": "stylelint \"**/*.scss\"",
+    "lint": "npm run lint:scripts && npm run lint:styles",
     "build": "webpack",
     "verify": "npm run lint && npm run build",
     "start": "webpack-dev-server"
@@ -31,6 +33,9 @@
     "postcss-loader": "^5.2.0",
     "sass": "^1.32.8",
     "sass-loader": "^11.0.1",
+    "stylelint": "^13.12.0",
+    "stylelint-config-recess-order": "^2.3.0",
+    "stylelint-config-sass-guidelines": "^8.0.0",
     "ts-loader": "^8.1.0",
     "ts-node": "^9.1.1",
     "typescript": "^4.2.3",

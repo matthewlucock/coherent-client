@@ -5,18 +5,18 @@
   width: $form-width / 2;
   height: 2.2em;
   padding: 0 1em;
-  border-radius: 2em;
   overflow: hidden;
-  background-color: hsla(0, 0%, 0%, .2);
+  color: hsl(0, 0%, 100%);
   text-align: center;
-  color: white;
   text-transform: uppercase;
   cursor: pointer;
+  background-color: hsla(0, 0%, 0%, 0.2);
+  border-radius: 2em;
+  transition-duration: 0.15s;
   transition-property: background-color, opacity;
-  transition-duration: .15s;
 
   &:disabled {
-    background-color: hsla(0, 0%, 100%, .5);
+    background-color: hsla(0, 0%, 100%, 0.5);
   }
 
   &:not(:disabled):hover {
@@ -24,17 +24,17 @@
   }
 
   &::before {
-    content: '';
     position: absolute;
     top: 0;
+    right: 0;
     bottom: 0;
     left: 0;
-    right: 0;
-    background-image: linear-gradient(90deg, hsl(200, 100%, 60%), hsl(270, 100%, 60%));
     z-index: -1;
+    content: '';
+    background-image: linear-gradient(90deg, hsl(200, 100%, 60%), hsl(270, 100%, 60%));
   }
 }
 
-.loadingIndicator {
+.loading-indicator {
   margin: 0 auto;
 }

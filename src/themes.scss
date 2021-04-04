@@ -61,11 +61,11 @@ $dark-theme: make-dark-theme();
 :root {
   @include emit-variables($light-theme);
 
-  &.darkTheme {
+  &.dark-theme {
     @include emit-variables($dark-theme);
   }
 
-  &.changingTheme body * {
+  &.changing-theme body * {
     transition: none !important;
   }
 }

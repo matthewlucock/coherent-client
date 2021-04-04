@@ -3,10 +3,10 @@
 .menu-item {
   display: flex;
   align-items: center;
-  padding: .5em .8em;
+  padding: 0.5em 0.8em;
   cursor: pointer;
-  transition-property: background;
   transition-duration: $transition-duration;
+  transition-property: background;
 
   &:hover {
     background-color: var(--second-menu-color);
@@ -15,7 +15,7 @@
 
 .icon {
   @extend %icon;
-  margin-right: .5em;
+  margin-right: 0.5em;
 
   &.colored {
     color: inherit;

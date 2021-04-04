@@ -7,23 +7,23 @@
 .form {
   @extend %column;
   width: $form-width;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
 }
 
-.inputsContainer {
+.inputs-container {
   margin-bottom: 1.25em;
 }
 
-.errorMessage {
-  font-size: .65em;
+.error-message {
   display: flex;
   align-items: center;
   height: 1.5em;
   margin-bottom: 1em;
-  opacity: 0;
+  font-size: 0.65em;
   color: $error-color;
-  transition-property: opacity;
+  opacity: 0;
   transition-duration: $transition-duration;
+  transition-property: opacity;
 
   &.visible {
     opacity: 1;

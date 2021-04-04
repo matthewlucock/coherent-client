@@ -1,4 +1,4 @@
-$transition-duration: .25s;
+$transition-duration: 0.25s;
 
 $unfocused-color: hsl(0, 0%, 60%);
 $error-color: hsl(0, 100%, 40%);
@@ -13,9 +13,9 @@ $form-width: 13em;
 
 %pane {
   @extend %column;
-  font-size: 1.25em;
   justify-content: center;
   height: 100%;
+  font-size: 1.25em;
 }
 
 %link {
@@ -26,14 +26,14 @@ $form-width: 13em;
   text-decoration: none;
 
   &::after {
-    content: '';
     width: 0;
-    height: .15em;
-    margin-top: .2em;
-    border-radius: 1em;
+    height: 0.15em;
+    margin-top: 0.2em;
+    content: '';
     background-color: currentColor;
-    transition-property: width;
+    border-radius: 1em;
     transition-duration: $transition-duration * 2;
+    transition-property: width;
   }
 
   &:hover::after {
@@ -41,7 +41,7 @@ $form-width: 13em;
   }
 }
 
-$app-bar-padding: .25em;
+$app-bar-padding: 0.25em;
 
 %app-bar-item-container {
   height: 100%;

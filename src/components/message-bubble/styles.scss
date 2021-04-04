@@ -1,15 +1,15 @@
 @use 'globals' as *;
 
 .bubble {
-  padding: .5em;
-  border-radius: .5em;
-  background: hsl(0, 0%, 80%);
   max-width: 55%;
+  padding: 0.5em;
   overflow-wrap: break-word;
+  background: hsl(0, 0%, 80%);
+  border-radius: 0.5em;
 
   &.self {
     align-self: flex-end;
+    color: hsl(0, 0%, 100%);
     background: hsl(200, 100%, 50%);
-    color: white;
   }
 }

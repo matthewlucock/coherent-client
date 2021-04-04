@@ -5,18 +5,19 @@
   font-size: 1.25em;
 }
 
-.errorIcon {
+.error-icon {
   @extend %icon;
+  margin-bottom: 0.1em;
   font-size: 5em;
-  margin-bottom: .1em;
 }
 
 .heading {
+  margin-bottom: 0.5em;
   font-size: 3em;
-  margin-bottom: .5em;
 }
 
-.heading, .paragraph {
+.heading,
+.paragraph {
   user-select: text;
 }
 
