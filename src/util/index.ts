@@ -3,6 +3,7 @@ export const simpleRemoveFromArray = <T>(array: T[], item: T): void => {
 }
 
 export const handlePromiseRejection = (promise: Promise<unknown>): void => {
+  // eslint-disable-next-line no-console
   promise.catch(console.error)
 }
 

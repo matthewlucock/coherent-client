@@ -62,6 +62,7 @@ export const apiRequest = async (path: string, options?: Options): Promise<any> 
   try {
     responseData = JSON.parse(responseText)
   } catch (error) {
+    // eslint-disable-next-line no-console
     console.error(`Could not parse JSON for request: ${path}`)
     throw error
   }

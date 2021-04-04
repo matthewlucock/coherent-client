@@ -26,6 +26,7 @@ class Socket {
 
   private onMessage (rawMessage: any): void {
     if (typeof rawMessage !== 'string') {
+      // eslint-disable-next-line no-console
       console.error('Binary socket message')
       return
     }

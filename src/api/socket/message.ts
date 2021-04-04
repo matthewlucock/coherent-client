@@ -20,5 +20,6 @@ export const handleSocketMessage = (message: SocketMessage): void => {
     return
   }
 
+  // eslint-disable-next-line no-console
   console.warn(`Unrecognised socket message type: ${message.type}`)
 }
