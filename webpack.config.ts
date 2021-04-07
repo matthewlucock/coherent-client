@@ -4,6 +4,7 @@ import webpack from 'webpack'
 import autoprefixer from 'autoprefixer'
 import { CleanWebpackPlugin } from 'clean-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
 const SERVER_PORT = 8081
@@ -58,6 +59,7 @@ const config: webpack.Configuration = {
     new CleanWebpackPlugin(),
     new webpack.DefinePlugin({ SERVER_PORT }),
     new MiniCssExtractPlugin(),
+    new CssMinimizerPlugin(),
     new HtmlWebpackPlugin({ template: path.resolve(SRC, 'static/index.html') })
   ],
 
