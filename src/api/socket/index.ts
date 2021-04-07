@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
+
 import { SERVER_DOMAIN } from 'coherent/globals'
 import { getState } from 'coherent/store'
 
