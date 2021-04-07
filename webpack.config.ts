@@ -59,7 +59,7 @@ const config: webpack.Configuration = {
     new webpack.DefinePlugin({ SERVER_PORT }),
     new MiniCssExtractPlugin(),
     new HtmlWebpackPlugin({
-      template: path.resolve(SRC, 'index.html'),
+      template: path.resolve(SRC, 'static/index.html'),
       inject: 'head',
       scriptLoading: 'defer'
     })
